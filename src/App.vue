@@ -23,14 +23,12 @@ export default {
 #app {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .content-area {
   width: 100%;
   @include content-max-width;
   padding: 12px 0px;
+  margin: auto;
 }
 </style>
