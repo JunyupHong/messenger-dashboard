@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Container from '@/components/common/Container.vue';
+import Container from '@/components/presentationals/Container.vue';
 
 export default {
   name: 'Date',
