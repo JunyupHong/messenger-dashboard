@@ -1,13 +1,13 @@
 <template>
-  <Container title="Overview"> template </Container>
+  <ContentWrapper title="Overview"> template </ContentWrapper>
 </template>
 
 <script>
-import Container from '@/components/presentationals/Container.vue';
+import ContentWrapper from '@/components/presentationals/ContentWrapper.vue';
 
 export default {
   name: 'Date',
-  components: { Container },
+  components: { ContentWrapper },
 };
 </script>
 

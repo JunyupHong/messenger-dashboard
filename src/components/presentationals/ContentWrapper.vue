@@ -1,7 +1,7 @@
 <template>
-  <section class="container">
-    <h2 class="container--title">{{ title }}</h2>
-    <article class="container--content">
+  <section class="content-wrapper">
+    <h2 class="content-wrapper--title">{{ title }}</h2>
+    <article class="content-wrapper--content">
       <slot></slot>
     </article>
   </section>
@@ -19,7 +19,7 @@ export default {
 @use '@/assets/styles/_colors.scss' as color;
 @use '@/assets/styles/_fonts.scss' as font;
 
-.container {
+.content-wrapper {
   padding: 24px 0;
   &--title {
     font-size: font.$big;
