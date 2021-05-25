@@ -17,11 +17,13 @@ export default {
 
 <style lang="scss" scoped>
 @use '@/assets/styles/_colors.scss' as color;
+@use '@/assets/styles/_fonts.scss' as font;
 
 .container {
   padding: 24px 0;
   &--title {
-    font-size: 1.5rem;
+    font-size: font.$big;
+    font-weight: font.$medium;
     color: color.$black-1;
   }
 }

@@ -32,7 +32,7 @@ export default {};
     display: flex;
   }
   &--logo {
-    font-size: 2.25rem;
+    font-size: font.$x-big;
     font-weight: font.$bold;
     color: color.$main-1;
   }
