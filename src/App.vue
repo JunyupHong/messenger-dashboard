@@ -16,9 +16,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import './assets/styles/_global.scss';
 @import './assets/styles/_reset.scss';
 @import './assets/styles/_mixins.scss';
+@import './assets/styles/_global.scss';
 
 #app {
   width: 100vw;
@@ -31,6 +31,6 @@ export default {
 .content-area {
   width: 100%;
   @include content-max-width;
-  padding: 36px 0px;
+  padding: 12px 0px;
 }
 </style>

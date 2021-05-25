@@ -1,10 +1,13 @@
 <template>
-  <div>Date</div>
+  <Container title="Overview"> template </Container>
 </template>
 
 <script>
+import Container from '@/components/common/Container.vue';
+
 export default {
   name: 'Date',
+  components: { Container },
 };
 </script>
 

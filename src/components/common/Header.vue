@@ -16,7 +16,8 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/_colors.scss';
+@use '@/assets/styles/_colors.scss' as color;
+@use '@/assets/styles/_fonts.scss' as font;
 @import '@/assets/styles/_mixins.scss';
 
 .header {
@@ -27,24 +28,24 @@ export default {};
   &--content {
     @include content-max-width;
     width: 100%;
-    padding: 1.5rem 0px;
+    padding: 24px 0px;
     display: flex;
   }
   &--logo {
     font-size: 2.25rem;
-    font-weight: 700;
-    color: $main-color-1;
+    font-weight: font.$bold;
+    color: color.$main-1;
   }
 
   &--nav {
     margin-left: 24px;
-    a:hover {
-      color: $main-color-2;
-      font-weight: 600;
-    }
     & [aria-current] {
-      color: $main-color-2;
-      font-weight: 600;
+      color: color.$main-2;
+      font-weight: font.$medium;
+    }
+    a:hover {
+      color: color.$main-2;
+      font-weight: font.$medium;
     }
   }
 }
