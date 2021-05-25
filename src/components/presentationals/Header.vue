@@ -21,15 +21,14 @@ export default {};
 @import '@/assets/styles/_mixins.scss';
 
 .header {
-  box-shadow: 0 4px 4px #ddd;
-  display: flex;
+  box-shadow: 0 4px 4px color.$black-4;
   width: 100vw;
-  justify-content: center;
+
   &--content {
-    @include content-max-width;
     width: 100%;
+    @include content-max-width;
     padding: 24px 0px;
-    display: flex;
+    margin: 0 auto;
   }
   &--logo {
     font-size: font.$x-big;
@@ -38,6 +37,7 @@ export default {};
   }
 
   &--nav {
+    display: inline-block;
     margin-left: 24px;
     & [aria-current] {
       color: color.$main-2;

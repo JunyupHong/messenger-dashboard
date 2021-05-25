@@ -26,7 +26,6 @@ export default {
 }
 
 .content-area {
-  width: 100%;
   @include content-max-width;
   padding: 12px 0px;
   margin: auto;
