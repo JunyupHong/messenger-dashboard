@@ -5,7 +5,7 @@
         type="daterange"
         v-model="period"
         :editable="false"
-        range-separator="To"
+        range-separator="~"
         start-placeholder="Start date"
         end-placeholder="End date"
       ></el-date-picker>
