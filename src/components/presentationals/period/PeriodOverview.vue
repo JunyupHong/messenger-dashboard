@@ -13,9 +13,10 @@
           <p class="content__desc">{{ content.desc }}</p>
           <div>
             <span class="content__prev-value">{{ data[content.title].prevValue }}</span>
-            <span class="content__percent" :positive="percents[i] > 0" :negative="percents[i] < 0"
-              >{{ percents[i] }}%</span
-            >
+            <span class="content__percent" :positive="percents[i] > 0" :negative="percents[i] < 0">
+              <span v-if="percents[i] > 0">+</span>
+              {{ percents[i] }}%
+            </span>
           </div>
         </div>
       </article>
