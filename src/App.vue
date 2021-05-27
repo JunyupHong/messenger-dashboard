@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/_mixins.scss';
+@import '@/assets/styles/mixins/_mixins.scss';
 
 #app {
   width: 100vw;

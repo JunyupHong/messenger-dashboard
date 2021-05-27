@@ -16,8 +16,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/_colors.scss' as color;
-@use '@/assets/styles/_fonts.scss' as font;
+@use '@/assets/styles/base/_colors.scss' as color;
+@use '@/assets/styles/base/_fonts.scss' as font;
 
 .content-wrapper {
   padding: 24px 0;

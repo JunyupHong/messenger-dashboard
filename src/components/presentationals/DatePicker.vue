@@ -20,7 +20,7 @@
       ></el-date-picker>
       <el-date-picker
         type="date"
-        :value="secondDate"
+        v-model="secondDate"
         :editable="false"
         placeholder="Pick a day"
       ></el-date-picker>
@@ -59,6 +59,7 @@ export default {
         return this.value[1];
       },
       set(newSecondDate) {
+        console.log(newSecondDate);
         this.$emit('changeDate', [this.value[0], newSecondDate]);
       },
     },

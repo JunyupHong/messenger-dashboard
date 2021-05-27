@@ -16,9 +16,9 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/_colors.scss' as color;
-@use '@/assets/styles/_fonts.scss' as font;
-@import '@/assets/styles/_mixins.scss';
+@use '@/assets/styles/base/_colors.scss' as color;
+@use '@/assets/styles/base/_fonts.scss' as font;
+@import '@/assets/styles/mixins/_mixins.scss';
 
 .header {
   box-shadow: 0 4px 4px color.$black-4;

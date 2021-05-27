@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       period: [new Date(), new Date()],
-      date: [new Date(), 20200101],
+      date: [new Date()],
       changePeriod: (newValue) => (this.period = newValue),
       changeDate: (newValue) => (this.date = newValue),
     };
