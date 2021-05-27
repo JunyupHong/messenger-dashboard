@@ -7,7 +7,7 @@
 
 <script>
 import ContentWrapper from '@/components/presentationals/ContentWrapper.vue';
-import DatePicker from '@/components/presentationals/DatePicker.vue';
+import DatePicker from '@/components/containers/DatePicker.vue';
 
 export default {
   name: 'Date',
