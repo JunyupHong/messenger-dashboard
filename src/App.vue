@@ -2,7 +2,7 @@
   <div id="app">
     <Header></Header>
     <main class="content-area">
-      <router-view />
+      <router-view></router-view>
     </main>
   </div>
 </template>
@@ -15,10 +15,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import './assets/styles/_reset.scss';
-@import './assets/styles/_mixins.scss';
-@import './assets/styles/_global.scss';
+<style lang="scss" scoped>
+@import '@/assets/styles/_mixins.scss';
 
 #app {
   width: 100vw;
@@ -27,7 +25,7 @@ export default {
 
 .content-area {
   @include content-max-width;
-  padding: 12px 0px;
+  padding: 12px 0;
   margin: auto;
 }
 </style>
