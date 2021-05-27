@@ -13,18 +13,28 @@ export default {
   props: {
     type: String,
   },
+
   components: { DatePicker },
+
   data() {
     return {
       period: [new Date(), new Date()],
       date: [new Date()],
-      changePeriod: (newValue) => (this.period = newValue),
-      changeDate: (newValue) => (this.date = newValue),
     };
   },
+
   computed: {
     dateValue() {
       return this.type === 'period' ? this.period : this.date;
+    },
+  },
+
+  methods: {
+    changePeriod(newValue) {
+      this.period = newValue;
+    },
+    changeDate(newValue) {
+      this.date = newValue;
     },
   },
 };
