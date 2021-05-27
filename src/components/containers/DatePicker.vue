@@ -2,8 +2,8 @@
   <DatePicker
     :type="type"
     v-model="dateValue"
-    @changePeriod="changePeriod"
-    @changeDate="changeDate"
+    @changePeriod="onChangePeriod"
+    @changeDate="onChangeDate"
   />
 </template>
 
@@ -30,10 +30,10 @@ export default {
   },
 
   methods: {
-    changePeriod(newValue) {
+    onChangePeriod(newValue) {
       this.period = newValue;
     },
-    changeDate(newValue) {
+    onChangeDate(newValue) {
       this.date = newValue;
     },
   },

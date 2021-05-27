@@ -5,7 +5,8 @@
         type="daterange"
         v-model="period"
         :editable="false"
-        range-separator="To"
+        :clearable="false"
+        range-separator="~"
         start-placeholder="Start date"
         end-placeholder="End date"
       ></el-date-picker>
@@ -19,6 +20,7 @@
         placeholder="Pick a day"
       ></el-date-picker>
       <el-date-picker
+        class="date-picker__date--second"
         type="date"
         v-model="secondDate"
         :editable="false"
@@ -59,7 +61,6 @@ export default {
         return this.value[1];
       },
       set(newSecondDate) {
-        console.log(newSecondDate);
         this.$emit('changeDate', [this.value[0], newSecondDate]);
       },
     },
@@ -72,5 +73,10 @@ export default {
   display: flex;
   justify-content: flex-end;
   padding: 24px 0;
+  &__date {
+    &--second {
+      margin-left: 1.5rem;
+    }
+  }
 }
 </style>
