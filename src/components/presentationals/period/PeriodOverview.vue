@@ -5,9 +5,9 @@
       v-for="(content, i) in contents"
       :key="'period-overview-' + content.title"
     >
-      <article class="period-overview__content content">
-        <h3 class="content__title">{{ content.title }}</h3>
-        <div class="period-overview__content--center">
+      <ContentBox>
+        <template #title>{{ content.title }}</template>
+        <template #default>
           <p class="content__desc">{{ data[content.title].desc }}</p>
           <strong class="content__value">{{ data[content.title].value }}</strong>
           <p class="content__desc">{{ content.desc }}</p>
@@ -18,17 +18,20 @@
               {{ percents[i] }}%
             </span>
           </div>
-        </div>
-      </article>
+        </template>
+      </ContentBox>
     </div>
   </section>
 </template>
 
 <script>
+import ContentBox from '../ContentBox';
+
 export default {
   props: {
     data: Object,
   },
+  components: { ContentBox },
   data() {
     return {
       contents: [
@@ -64,24 +67,8 @@ export default {
       padding-right: 0;
     }
   }
-  &__content {
-    border: solid 1px color.$black-3;
-    box-shadow: 2px 2px 4px color.$black-3;
-    padding: 1.5rem 1rem;
-    &--center {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
 }
 .content {
-  &__title {
-    font-size: 1.5rem;
-    font-weight: font.$bold;
-    color: color.$black-2;
-    text-transform: capitalize;
-  }
   &__desc {
     margin-top: 16px;
     color: color.$black-3;

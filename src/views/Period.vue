@@ -1,19 +1,19 @@
 <template>
   <div>
     <DatePicker type="period"></DatePicker>
-    <ContentWrapper title="Overview">
+    <ContentsWrapper title="Overview">
       <PeriodOverview />
-    </ContentWrapper>
+    </ContentsWrapper>
   </div>
 </template>
 
 <script>
-import ContentWrapper from '@/components/presentationals/ContentWrapper.vue';
+import ContentsWrapper from '@/components/presentationals/ContentsWrapper.vue';
 import DatePicker from '@/components/containers/DatePicker.vue';
 import PeriodOverview from '@/components/containers/period/PeriodOverview.vue';
 export default {
   name: 'Period',
-  components: { ContentWrapper, DatePicker, PeriodOverview },
+  components: { ContentsWrapper, DatePicker, PeriodOverview },
 };
 </script>
 
