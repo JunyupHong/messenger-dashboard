@@ -6,12 +6,12 @@
         <template #default>
           <div class="content">
             <div>
-              <p class="content__desc">2021.05.16</p>
-              <strong class="content__value content__value--first">63488</strong>
+              <p class="content__desc">{{ firstData.desc }}</p>
+              <strong class="content__value content__value--first">{{ firstData.max }}</strong>
             </div>
-            <div>
-              <p class="content__desc">2021.05.16</p>
-              <strong class="content__value content__value--second">63488</strong>
+            <div v-if="secondData">
+              <p class="content__desc">{{ secondData.desc }}</p>
+              <strong class="content__value content__value--second">{{ secondData.max }}</strong>
             </div>
           </div>
         </template>
@@ -21,12 +21,12 @@
         <template #default>
           <div class="content">
             <div>
-              <p class="content__desc">2021.05.16</p>
-              <strong class="content__value content__value--first">63488</strong>
+              <p class="content__desc">{{ firstData.desc }}</p>
+              <strong class="content__value content__value--first">{{ firstData.total }}</strong>
             </div>
-            <div>
-              <p class="content__desc">2021.05.16</p>
-              <strong class="content__value content__value--second">63488</strong>
+            <div v-if="secondData">
+              <p class="content__desc">{{ secondData.desc }}</p>
+              <strong class="content__value content__value--second">{{ secondData.total }}</strong>
             </div>
           </div>
         </template>
@@ -35,56 +35,7 @@
     <div class="date-overview__right">
       <ContentBox>
         <template #title>서버 별 접속자 수 총합</template>
-        <template #default>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-          <br />
-          <div class="content">
-            <div class="content__label">사내 (54)</div>
-            <div class="content__data"></div>
-            <div class="content__label--sub">6431</div>
-          </div>
-        </template>
+        <template #default> </template>
       </ContentBox>
     </div>
   </section>
@@ -93,6 +44,13 @@
 <script>
 import ContentBox from '../ContentBox.vue';
 export default {
+  props: {
+    firstData: {
+      type: Object,
+      require: true,
+    },
+    secondData: Object,
+  },
   components: { ContentBox },
 };
 </script>
@@ -126,11 +84,9 @@ export default {
 
 .content {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   width: 100%;
-  & > * {
-    margin: 0 12px;
-  }
+  padding: 20px;
   &__desc {
     margin-top: 16px;
     color: color.$black-3;
@@ -146,22 +102,6 @@ export default {
     }
     &--second {
       color: color.$sub-1;
-    }
-  }
-
-  &__data {
-    margin: 0 24px;
-    width: 200px;
-    border-top: solid 3px color.$main-1;
-    border-bottom: solid 3px color.$sub-2;
-  }
-  &__label {
-    font-size: font.$small;
-    font-weight: font.$bold;
-    color: color.$black-1;
-    &--sub {
-      font-size: font.$small;
-      color: color.$black-3;
     }
   }
 }
