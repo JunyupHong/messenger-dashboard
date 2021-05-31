@@ -13,6 +13,7 @@
           <p class="content__desc">{{ contentInfo.desc }}</p>
           <div>
             <span class="content__prev-value">{{ contentData[contentInfo.title].prevValue }}</span>
+
             <span class="content__percent" :positive="percents[i] > 0" :negative="percents[i] < 0">
               <span v-if="percents[i] > 0">+</span>
               {{ percents[i] }}%
