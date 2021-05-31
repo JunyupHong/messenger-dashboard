@@ -20,11 +20,14 @@ export default {
 @use '@/assets/styles/base/_fonts.scss' as font;
 
 .content-wrapper {
-  padding: 24px 0;
+  padding: 32px 0;
   &--title {
     font-size: font.$big;
     font-weight: font.$medium;
     color: color.$black-1;
+  }
+  &--content {
+    margin-top: 12px;
   }
 }
 </style>
