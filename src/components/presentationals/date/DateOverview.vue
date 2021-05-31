@@ -6,12 +6,14 @@
         <template #default>
           <div class="content">
             <div>
-              <p class="content__desc">{{ firstData.desc }}</p>
-              <strong class="content__value content__value--first">{{ firstData.max }}</strong>
+              <p class="content__desc">{{ firstDateData.desc }}</p>
+              <strong class="content__value content__value--first">{{ firstDateData.max }}</strong>
             </div>
-            <div v-if="secondData">
-              <p class="content__desc">{{ secondData.desc }}</p>
-              <strong class="content__value content__value--second">{{ secondData.max }}</strong>
+            <div v-if="isValidSecondDateData">
+              <p class="content__desc">{{ secondDateData.desc }}</p>
+              <strong class="content__value content__value--second">{{
+                secondDateData.max
+              }}</strong>
             </div>
           </div>
         </template>
@@ -21,12 +23,16 @@
         <template #default>
           <div class="content">
             <div>
-              <p class="content__desc">{{ firstData.desc }}</p>
-              <strong class="content__value content__value--first">{{ firstData.total }}</strong>
+              <p class="content__desc">{{ firstDateData.desc }}</p>
+              <strong class="content__value content__value--first">{{
+                firstDateData.total
+              }}</strong>
             </div>
-            <div v-if="secondData">
-              <p class="content__desc">{{ secondData.desc }}</p>
-              <strong class="content__value content__value--second">{{ secondData.total }}</strong>
+            <div v-if="isValidSecondDateData">
+              <p class="content__desc">{{ secondDateData.desc }}</p>
+              <strong class="content__value content__value--second">{{
+                secondDateData.total
+              }}</strong>
             </div>
           </div>
         </template>
@@ -45,13 +51,34 @@
 import ContentBox from '../ContentBox.vue';
 export default {
   props: {
-    firstData: {
+    firstDateData: {
       type: Object,
       require: true,
     },
-    secondData: Object,
+    secondDateData: {
+      type: Object,
+      default: null,
+      validator: function (value) {
+        return (
+          typeof value.desc === 'string' &&
+          typeof value.max === 'number' &&
+          typeof value.total === 'number' &&
+          typeof value.servers === 'object'
+        );
+      },
+    },
   },
   components: { ContentBox },
+  computed: {
+    isValidSecondDateData() {
+      return (
+        typeof this.secondDateData.desc === 'string' &&
+        typeof this.secondDateData.max === 'number' &&
+        typeof this.secondDateData.total === 'number' &&
+        typeof this.secondDateData.servers === 'object'
+      );
+    },
+  },
 };
 </script>
 
