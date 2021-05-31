@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DatePicker type="period"></DatePicker>
+    <DatePicker type="period" />
     <ContentsWrapper title="Overview">
       <PeriodOverview />
     </ContentsWrapper>

@@ -2,17 +2,17 @@
   <section class="period-overview">
     <div
       class="period-overview__content-wrapper"
-      v-for="(content, i) in contents"
-      :key="'period-overview-' + content.title"
+      v-for="(contentInfo, i) in contentsInfo"
+      :key="'period-overview-' + contentInfo.title"
     >
       <ContentBox>
-        <template #title>{{ content.title }}</template>
+        <template #title>{{ contentInfo.title }}</template>
         <template #default>
-          <p class="content__desc">{{ data[content.title].desc }}</p>
-          <strong class="content__value">{{ data[content.title].value }}</strong>
-          <p class="content__desc">{{ content.desc }}</p>
+          <p class="content__desc">{{ contentData[contentInfo.title].desc }}</p>
+          <strong class="content__value">{{ contentData[contentInfo.title].value }}</strong>
+          <p class="content__desc">{{ contentInfo.desc }}</p>
           <div>
-            <span class="content__prev-value">{{ data[content.title].prevValue }}</span>
+            <span class="content__prev-value">{{ contentData[contentInfo.title].prevValue }}</span>
             <span class="content__percent" :positive="percents[i] > 0" :negative="percents[i] < 0">
               <span v-if="percents[i] > 0">+</span>
               {{ percents[i] }}%
@@ -29,12 +29,12 @@ import ContentBox from '../ContentBox';
 
 export default {
   props: {
-    data: Object,
+    contentData: { type: Object, require: true },
   },
   components: { ContentBox },
   data() {
     return {
-      contents: [
+      contentsInfo: [
         { title: 'day', desc: '전날 대비' },
         { title: 'week', desc: '전주 대비' },
         { title: 'month', desc: '전월 대비' },
@@ -44,7 +44,9 @@ export default {
   },
   computed: {
     percents() {
-      return Object.values(this.data).map((d) => ((d.value - d.prevValue) * 100) / d.prevValue);
+      return Object.values(this.contentData).map(
+        content => ((content.value - content.prevValue) * 100) / content.prevValue
+      );
     },
   },
 };

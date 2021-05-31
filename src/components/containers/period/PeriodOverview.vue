@@ -1,5 +1,5 @@
 <template>
-  <PeriodOverview :data="contentData" />
+  <PeriodOverview :contentData="contentData" />
 </template>
 
 <script>

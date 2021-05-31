@@ -30,11 +30,11 @@ export default {
   },
 
   methods: {
-    onChangePeriod(newValue) {
-      this.period = newValue;
+    onChangePeriod(newPeriod) {
+      this.period = newPeriod;
     },
-    onChangeDate(newValue) {
-      this.date = newValue;
+    onChangeDate(newData) {
+      this.date = newData;
     },
   },
 };
