@@ -1,17 +1,17 @@
 <template>
   <div>
     <DatePicker type="date"></DatePicker>
-    <ContentWrapper title="Overview"> template </ContentWrapper>
+    <ContentsWrapper title="Overview"> template </ContentsWrapper>
   </div>
 </template>
 
 <script>
-import ContentWrapper from '@/components/presentationals/ContentWrapper.vue';
+import ContentsWrapper from '@/components/presentationals/ContentsWrapper.vue';
 import DatePicker from '@/components/containers/DatePicker.vue';
 
 export default {
   name: 'Date',
-  components: { ContentWrapper, DatePicker },
+  components: { ContentsWrapper, DatePicker },
 };
 </script>
 
