@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     percents() {
-      return Object.values(this.data).map((d) => ((d.value - d.prevValue) * 100) / d.prevValue);
+      return Object.values(this.data).map(d => ((d.value - d.prevValue) * 100) / d.prevValue);
     },
   },
 };
