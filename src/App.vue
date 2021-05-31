@@ -1,34 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">기간 별 탐색</router-link>
-      |
-      <router-link to="/date">날짜 별 비교</router-link>
-    </div>
-    <router-view />
+    <Header></Header>
+    <main class="content-area">
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
-<style lang="scss">
-@import url('./assets/scss/_global.scss');
+<script>
+import Header from './components/presentationals/Header.vue';
+
+export default {
+  components: { Header },
+};
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/styles/mixins/_mixins.scss';
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  width: 100vw;
+  height: 100vh;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.content-area {
+  @include content-max-width;
+  padding: 12px 0;
+  margin: auto;
 }
 </style>
