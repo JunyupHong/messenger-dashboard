@@ -14,7 +14,7 @@
 import ContentsWrapper from '@/components/presentationals/ContentsWrapper.vue';
 import DatePicker from '@/components/containers/DatePicker.vue';
 import PeriodOverview from '@/components/containers/period/PeriodOverview.vue';
-import PeriodLineGraph from '@/components/presentationals/period/PeriodLineGraph.vue';
+import PeriodLineGraph from '@/components/containers/period/PeriodLineGraph.vue';
 
 export default {
   name: 'Period',

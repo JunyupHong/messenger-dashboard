@@ -27,11 +27,11 @@ export default {
     yLabel: String,
     legends: {
       type: Array,
-      require: true,
+      required: true,
     },
     chartData: {
       type: Object,
-      require: true,
+      required: true,
     },
   },
   components: { LineGraph, LineGraphChartjs },
