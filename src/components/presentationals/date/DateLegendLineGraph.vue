@@ -10,8 +10,8 @@
       </div>
     </article>
     <article class="linegraph">
-      <LineGraph :xLabel="xLabel" :yLabel="yLabel" :style="{ width: '100%' }">
-        <LineGraphChartjs :chartData="chartData" :style="{ width: '100%' }" />
+      <LineGraph :xLabel="xLabel" :yLabel="yLabel">
+        <LineGraphChartjs class="linegraph__full" :chartData="chartData" />
       </LineGraph>
     </article>
   </section>
@@ -71,5 +71,8 @@ export default {
 
 .linegraph {
   flex: 1;
+  &__full {
+    width: 100%;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <LineGraph :xLabel="xLabel" :yLabel="yLabel">
-    <LineGraphChartjs :chartData="chartData" :style="{ width: '100%' }" />
+    <LineGraphChartjs class="linegraph__full" :chartData="chartData" />
   </LineGraph>
 </template>
 
@@ -21,4 +21,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.linegraph__full {
+  width: 100%;
+}
+</style>
