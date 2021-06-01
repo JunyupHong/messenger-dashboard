@@ -36,6 +36,7 @@ export default {
   &__y-label {
     writing-mode: vertical-lr;
     text-orientation: sideways;
+    text-align: center;
     transform: rotate(180deg);
     margin-right: 8px;
   }

@@ -10,8 +10,8 @@
       </div>
     </article>
     <article class="linegraph">
-      <LineGraph :xLabel="xLabel" :yLabel="yLabel">
-        <LineGraphChartjs :chartData="chartData" />
+      <LineGraph :xLabel="xLabel" :yLabel="yLabel" :style="{ width: '100%' }">
+        <LineGraphChartjs :chartData="chartData" :style="{ width: '100%' }" />
       </LineGraph>
     </article>
   </section>

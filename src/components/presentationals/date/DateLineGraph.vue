@@ -1,6 +1,6 @@
 <template>
   <LineGraph :xLabel="xLabel" :yLabel="yLabel">
-    <LineGraphChartjs :chartData="chartData" />
+    <LineGraphChartjs :chartData="chartData" :style="{ width: '100%' }" />
   </LineGraph>
 </template>
 
