@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import ContentBox from '../ContentBox';
+import ContentBox from '../ContentBox.vue';
 
 export default {
   props: {
