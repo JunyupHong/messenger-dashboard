@@ -23,6 +23,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .linegraph {
+  position: relative;
   display: flex;
   min-width: 1000px;
   &__right {
@@ -36,6 +37,7 @@ export default {
   &__y-label {
     writing-mode: vertical-lr;
     text-orientation: sideways;
+    text-align: center;
     transform: rotate(180deg);
     margin-right: 8px;
   }
