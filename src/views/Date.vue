@@ -20,8 +20,8 @@
 import ContentsWrapper from '@/components/presentationals/ContentsWrapper.vue';
 import DatePicker from '@/components/containers/DatePicker.vue';
 import DateOverview from '@/components/containers/date/DateOverview.vue';
-import DateLineGraph from '@/components/presentationals/date/DateLineGraph.vue';
-import DateLegendLineGraph from '@/components/presentationals/date/DateLegendLineGraph.vue';
+import DateLineGraph from '@/components/containers/date/DateLineGraph.vue';
+import DateLegendLineGraph from '@/components/containers/date/DateLegendLineGraph.vue';
 
 export default {
   name: 'Date',

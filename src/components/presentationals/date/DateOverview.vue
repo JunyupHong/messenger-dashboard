@@ -43,7 +43,9 @@
 
 <script>
 import ContentBox from '../ContentBox.vue';
+
 export default {
+  components: { ContentBox },
   props: {
     firstDate: {
       type: Object,
@@ -62,7 +64,6 @@ export default {
       },
     },
   },
-  components: { ContentBox },
   computed: {
     isValidSecondDate() {
       return (
