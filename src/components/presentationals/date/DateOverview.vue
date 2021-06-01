@@ -46,30 +46,33 @@
 <script>
 import ContentBox from '../ContentBox.vue';
 import BarGraph from '../graph/BarGraph.vue';
+
 export default {
-  props: {
-    firstDate: {
-      type: Object,
-      require: true,
-    },
-    secondDate: {
-      type: Object,
-      default: null,
-      validator: function (value) {
-        return (
-          typeof value.desc === 'string' &&
-          typeof value.max === 'number' &&
-          typeof value.total === 'number' &&
-          typeof value.servers === 'object'
-        );
-      },
-    },
-    barGraph: {
-      type: Object,
-      require: true,
-    },
-  },
   components: { ContentBox, BarGraph },
+  data() {
+    return {
+      firstDate: {
+        type: Object,
+        require: true,
+      },
+      secondDate: {
+        type: Object,
+        default: null,
+        validator: function (value) {
+          return (
+            typeof value.desc === 'string' &&
+            typeof value.max === 'number' &&
+            typeof value.total === 'number' &&
+            typeof value.servers === 'object'
+          );
+        },
+      },
+      barGraph: {
+        type: Object,
+        require: true,
+      },
+    };
+  },
   computed: {
     isValidSecondDate() {
       return (
@@ -84,9 +87,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/base/_colors.scss' as color;
-@use '@/assets/styles/base/_fonts.scss' as font;
-
 .date-overview {
   display: flex;
   justify-content: space-between;

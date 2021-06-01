@@ -10,13 +10,16 @@
       </div>
     </article>
     <article class="linegraph">
-      <DateLineGraph :xLabel="xLabel" :yLabel="yLabel"></DateLineGraph>
+      <LineGraph :xLabel="xLabel" :yLabel="yLabel">
+        <LineGraphChartjs :chartData="chartData" />
+      </LineGraph>
     </article>
   </section>
 </template>
 
 <script>
-import DateLineGraph from './DateLineGraph';
+import LineGraph from '@/components/presentationals/LineGraph.vue';
+import LineGraphChartjs from '@/components/presentationals/graph/LineGraphChartjs.vue';
 
 export default {
   props: {
@@ -26,15 +29,16 @@ export default {
       type: Array,
       require: true,
     },
+    chartData: {
+      type: Object,
+      require: true,
+    },
   },
-  components: { DateLineGraph },
+  components: { LineGraph, LineGraphChartjs },
 };
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/base/_colors.scss' as color;
-@use '@/assets/styles/base/_fonts.scss' as font;
-
 .legend-linegraph {
   display: flex;
 }
