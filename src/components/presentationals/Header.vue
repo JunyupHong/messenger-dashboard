@@ -16,8 +16,6 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/base/_colors.scss' as color;
-@use '@/assets/styles/base/_fonts.scss' as font;
 @import '@/assets/styles/mixins/_mixins.scss';
 
 .header {

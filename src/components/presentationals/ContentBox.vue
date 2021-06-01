@@ -10,9 +10,6 @@
 </template>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/base/_colors.scss' as color;
-@use '@/assets/styles/base/_fonts.scss' as font;
-
 .content-box {
   border: solid 1px color.$black-3;
   box-shadow: 2px 2px 4px color.$black-3;

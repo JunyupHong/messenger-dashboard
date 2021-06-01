@@ -22,9 +22,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@use '@/assets/styles/base/_colors.scss' as color;
-@use '@/assets/styles/base/_fonts.scss' as font;
-
 .linegraph {
   display: flex;
   min-width: 1000px;
