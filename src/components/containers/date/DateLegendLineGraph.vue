@@ -1,11 +1,24 @@
 <template>
-  <DateLegendLineGraph :chartData="chartData" />
+  <DateLegendLineGraph
+    :xLabel="xLabel"
+    :yLabel="yLabel"
+    :legends="legends"
+    :chartData="chartData"
+  />
 </template>
 
 <script>
 import DateLegendLineGraph from '@/components/presentationals/date/DateLegendLineGraph';
 
 export default {
+  props: {
+    xLabel: String,
+    yLabel: String,
+    legends: {
+      type: Array,
+      require: true,
+    },
+  },
   components: { DateLegendLineGraph },
   data() {
     return {
