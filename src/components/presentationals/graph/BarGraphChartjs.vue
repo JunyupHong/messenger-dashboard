@@ -6,6 +6,8 @@ export default {
   props: ['chartData'],
   mounted() {
     this.renderChart(this.chartData, {
+      responsive: true,
+      maintainAspectRatio: false,
       legend: {
         display: false,
       },

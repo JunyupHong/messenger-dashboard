@@ -36,7 +36,7 @@
       <ContentBox>
         <template #title>서버 별 접속자 수 총합</template>
         <template #default>
-          <BarGraph :chartData="barGraph" />
+          <BarGraphChartjs :chartData="barGraph" :style="{ width: '100%' }" />
         </template>
       </ContentBox>
     </div>
@@ -45,10 +45,10 @@
 
 <script>
 import ContentBox from '../ContentBox.vue';
-import BarGraph from '../graph/BarGraph.vue';
+import BarGraphChartjs from '../graph/BarGraphChartjs.vue';
 
 export default {
-  components: { ContentBox, BarGraph },
+  components: { ContentBox, BarGraphChartjs },
   props: {
     firstDate: {
       type: Object,
@@ -65,20 +65,20 @@ export default {
           typeof value.servers === 'object'
         );
       },
-      barGraph: {
-        type: Object,
-        require: true,
-      },
     },
-    computed: {
-      isValidSecondDate() {
-        return (
-          typeof this.secondDate.desc === 'string' &&
-          typeof this.secondDate.max === 'number' &&
-          typeof this.secondDate.total === 'number' &&
-          typeof this.secondDate.servers === 'object'
-        );
-      },
+    barGraph: {
+      type: Object,
+      require: true,
+    },
+  },
+  computed: {
+    isValidSecondDate() {
+      return (
+        typeof this.secondDate.desc === 'string' &&
+        typeof this.secondDate.max === 'number' &&
+        typeof this.secondDate.total === 'number' &&
+        typeof this.secondDate.servers === 'object'
+      );
     },
   },
 };
@@ -103,6 +103,7 @@ export default {
     }
   }
   &__right {
+    position: relative;
     flex: 1;
     margin-left: 12px;
   }

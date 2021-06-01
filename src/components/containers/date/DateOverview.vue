@@ -4,7 +4,9 @@
 
 <script>
 import DateOverview from '@/components/presentationals/date/DateOverview.vue';
+
 export default {
+  components: { DateOverview },
   data() {
     return {
       firstDate: {
@@ -42,17 +44,16 @@ export default {
               'rgba(153, 102, 255, 0.2)',
             ],
             data: [65, 59, 80, 81, 56, 55, 40],
-            minBarLength: 300,
+            barThickness: 16,
           },
           {
             label: 'My second dataset',
             data: [65, 59, 80, 81, 56, 55, 40].reverse(),
-            minBarLength: 300,
+            barThickness: 16,
           },
         ],
       },
     };
   },
-  components: { DateOverview },
 };
 </script>
