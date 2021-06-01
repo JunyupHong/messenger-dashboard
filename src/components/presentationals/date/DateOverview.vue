@@ -35,7 +35,9 @@
     <div class="date-overview__right">
       <ContentBox>
         <template #title>서버 별 접속자 수 총합</template>
-        <template #default> </template>
+        <template #default>
+          <BarGraph :chartData="barGraph" />
+        </template>
       </ContentBox>
     </div>
   </section>
@@ -43,6 +45,7 @@
 
 <script>
 import ContentBox from '../ContentBox.vue';
+import BarGraph from '../graph/BarGraph.vue';
 export default {
   props: {
     firstDate: {
@@ -61,8 +64,12 @@ export default {
         );
       },
     },
+    barGraph: {
+      type: Object,
+      require: true,
+    },
   },
-  components: { ContentBox },
+  components: { ContentBox, BarGraph },
   computed: {
     isValidSecondDate() {
       return (

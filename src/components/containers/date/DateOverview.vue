@@ -1,5 +1,5 @@
 <template>
-  <DateOverview :firstDate="firstDate" :secondDate="secondDate" />
+  <DateOverview :firstDate="firstDate" :secondDate="secondDate" :barGraph="barGraph" />
 </template>
 
 <script>
@@ -18,6 +18,38 @@ export default {
         max: 11111,
         total: 654321,
         servers: [{ name: '사내 (54)', value: 6431 }],
+      },
+      barGraph: {
+        labels: [
+          '사내 (54)',
+          '일반 (93)',
+          '단독 (242)',
+          '전용 (198)',
+          '전옹 (88)',
+          '전용 (97)',
+          'KBS (182)',
+        ],
+        datasets: [
+          {
+            label: 'My First dataset',
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+            ],
+            data: [65, 59, 80, 81, 56, 55, 40],
+            minBarLength: 300,
+          },
+          {
+            label: 'My second dataset',
+            data: [65, 59, 80, 81, 56, 55, 40].reverse(),
+            minBarLength: 300,
+          },
+        ],
       },
     };
   },
