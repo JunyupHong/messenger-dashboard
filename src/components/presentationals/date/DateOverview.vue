@@ -36,7 +36,7 @@
       <ContentBox>
         <template #title>서버 별 접속자 수 총합</template>
         <template #default>
-          <BarGraphChartjs :chartData="barGraph" :style="{ width: '100%' }" />
+          <BarGraphChartjs class="bargraph__full" :chartData="barGraph" />
         </template>
       </ContentBox>
     </div>
@@ -131,5 +131,8 @@ export default {
       color: color.$sub-1;
     }
   }
+}
+.bargraph__full {
+  width: 100%;
 }
 </style>
