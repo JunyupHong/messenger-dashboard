@@ -23,6 +23,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .linegraph {
+  position: relative;
   display: flex;
   min-width: 1000px;
   &__right {
