@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import DatePicker from '../presentationals/DatePicker';
+import DatePicker from '../presentationals/DatePicker.vue';
 export default {
   props: {
     type: String,

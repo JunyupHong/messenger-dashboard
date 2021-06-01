@@ -43,7 +43,9 @@
 
 <script>
 import ContentBox from '../ContentBox.vue';
+
 export default {
+  components: { ContentBox },
   props: {
     firstDate: {
       type: Object,
@@ -62,7 +64,6 @@ export default {
       },
     },
   },
-  components: { ContentBox },
   computed: {
     isValidSecondDate() {
       return (
@@ -77,9 +78,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/base/_colors.scss' as color;
-@use '@/assets/styles/base/_fonts.scss' as font;
-
 .date-overview {
   display: flex;
   justify-content: space-between;

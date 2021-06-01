@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import ContentBox from '../ContentBox';
+import ContentBox from '../ContentBox.vue';
 
 export default {
   props: {
@@ -54,9 +54,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use '@/assets/styles/base/_colors.scss' as color;
-@use '@/assets/styles/base/_fonts.scss' as font;
-
 .period-overview {
   display: flex;
   justify-content: space-between;
