@@ -49,38 +49,36 @@ import BarGraph from '../graph/BarGraph.vue';
 
 export default {
   components: { ContentBox, BarGraph },
-  data() {
-    return {
-      firstDate: {
-        type: Object,
-        require: true,
-      },
-      secondDate: {
-        type: Object,
-        default: null,
-        validator: function (value) {
-          return (
-            typeof value.desc === 'string' &&
-            typeof value.max === 'number' &&
-            typeof value.total === 'number' &&
-            typeof value.servers === 'object'
-          );
-        },
+  props: {
+    firstDate: {
+      type: Object,
+      require: true,
+    },
+    secondDate: {
+      type: Object,
+      default: null,
+      validator: function (value) {
+        return (
+          typeof value.desc === 'string' &&
+          typeof value.max === 'number' &&
+          typeof value.total === 'number' &&
+          typeof value.servers === 'object'
+        );
       },
       barGraph: {
         type: Object,
         require: true,
       },
-    };
-  },
-  computed: {
-    isValidSecondDate() {
-      return (
-        typeof this.secondDate.desc === 'string' &&
-        typeof this.secondDate.max === 'number' &&
-        typeof this.secondDate.total === 'number' &&
-        typeof this.secondDate.servers === 'object'
-      );
+    },
+    computed: {
+      isValidSecondDate() {
+        return (
+          typeof this.secondDate.desc === 'string' &&
+          typeof this.secondDate.max === 'number' &&
+          typeof this.secondDate.total === 'number' &&
+          typeof this.secondDate.servers === 'object'
+        );
+      },
     },
   },
 };
