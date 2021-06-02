@@ -30,7 +30,7 @@ import ContentBox from '../ContentBox.vue';
 
 export default {
   props: {
-    contentData: { type: Object, require: true },
+    contentData: { type: Object, required: true },
   },
   components: { ContentBox },
   data() {

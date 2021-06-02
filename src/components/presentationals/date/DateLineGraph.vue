@@ -14,7 +14,7 @@ export default {
     yLabel: String,
     chartData: {
       type: Object,
-      require: true,
+      required: true,
     },
   },
   components: { LineGraph, LineGraphChartjs },
