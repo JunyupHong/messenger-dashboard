@@ -49,7 +49,7 @@ export default {
   props: {
     firstDate: {
       type: Object,
-      require: true,
+      required: true,
     },
     secondDate: {
       type: Object,

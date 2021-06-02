@@ -1,6 +1,6 @@
 <template>
-  <LineGraph :xLabel="xLabel" :yLabel="yLabel">
-    <LineGraphChartjs class="linegraph__full" :chartData="chartData" />
+  <LineGraph xLabel="날짜" yLabel="동시 접속자 수">
+    <LineGraphChartjs :chartData="chartData" :style="{ width: '100%' }" />
   </LineGraph>
 </template>
 
@@ -20,9 +20,4 @@ export default {
   components: { LineGraph, LineGraphChartjs },
 };
 </script>
-
-<style lang="scss" scoped>
-.linegraph__full {
-  width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>
