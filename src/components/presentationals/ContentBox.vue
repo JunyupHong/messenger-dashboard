@@ -14,7 +14,6 @@
   border: solid 1px color.$black-3;
   box-shadow: 2px 2px 4px color.$black-3;
   padding: 1.5rem 1rem;
-  position: relative;
   &__title {
     font-size: 1.5rem;
     font-weight: font.$bold;

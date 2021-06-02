@@ -103,7 +103,6 @@ export default {
     }
   }
   &__right {
-    position: relative;
     flex: 1;
     margin-left: 12px;
   }
