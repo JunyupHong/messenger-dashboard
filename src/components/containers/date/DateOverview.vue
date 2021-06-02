@@ -33,22 +33,15 @@ export default {
         ],
         datasets: [
           {
-            label: 'My First dataset',
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(255, 205, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-            ],
-            data: [65, 59, 80, 81, 56, 55, 40],
+            label: '2021.05.16',
+            backgroundColor: '#2E447F',
+            data: Array.from({ length: 7 }).map(() => Math.round(Math.random() * 100)),
             barThickness: 16,
           },
           {
-            label: 'My second dataset',
-            data: [65, 59, 80, 81, 56, 55, 40].reverse(),
+            label: '2021.05.18',
+            data: Array.from({ length: 7 }).map(() => Math.round(Math.random() * 100)),
+            backgroundColor: '#CF4F2E',
             barThickness: 16,
           },
         ],

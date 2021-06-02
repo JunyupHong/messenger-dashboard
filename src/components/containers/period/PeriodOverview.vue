@@ -4,6 +4,7 @@
 
 <script>
 import PeriodOverview from '@/components/presentationals/period/PeriodOverview.vue';
+
 export default {
   components: {
     PeriodOverview,

@@ -8,10 +8,20 @@
       <DateLineGraph xLabel="시간" yLabel="동시 접속자 수" />
     </ContentsWrapper>
     <ContentsWrapper title="서버 별 동시 접속자 수 변화 - 2021.05.16">
-      <DateLegendLineGraph xLabel="시간" yLabel="동시 접속자 수" :legends="firstDateLegends" />
+      <DateLegendLineGraph
+        xLabel="시간"
+        yLabel="동시 접속자 수"
+        :legends="firstDateLegends"
+        type="first"
+      />
     </ContentsWrapper>
     <ContentsWrapper title="서버 별 동시 접속자 수 변화 - 2021.05.18">
-      <DateLegendLineGraph xLabel="시간" yLabel="동시 접속자 수" :legends="secondDateLegends" />
+      <DateLegendLineGraph
+        xLabel="시간"
+        yLabel="동시 접속자 수"
+        :legends="secondDateLegends"
+        type="second"
+      />
     </ContentsWrapper>
   </div>
 </template>
