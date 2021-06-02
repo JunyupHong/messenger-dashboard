@@ -88,8 +88,4 @@ export default {
     }
   }
 }
-.date-picker__date--first {
-  ::v-deep input {
-  }
-}
 </style>
