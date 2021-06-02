@@ -1,11 +1,15 @@
 <template>
-  <DateLineGraph :chartData="chartData" />
+  <DateLineGraph :chartData="chartData" :xLabel="xLabel" :yLabel="yLabel" />
 </template>
 
 <script>
 import DateLineGraph from '@/components/presentationals/date/DateLineGraph.vue';
 
 export default {
+  props: {
+    xLabel: String,
+    yLabel: String,
+  },
   components: { DateLineGraph },
   data() {
     return {
