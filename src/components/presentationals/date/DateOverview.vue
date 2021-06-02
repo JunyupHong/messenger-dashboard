@@ -35,7 +35,9 @@
     <div class="date-overview__right">
       <ContentBox>
         <template #title>서버 별 접속자 수 총합</template>
-        <template #default> </template>
+        <template #default>
+          <BarGraphChartjs class="bargraph__full" :chartData="barGraph" />
+        </template>
       </ContentBox>
     </div>
   </section>
@@ -43,9 +45,10 @@
 
 <script>
 import ContentBox from '../ContentBox.vue';
+import BarGraphChartjs from '../graph/BarGraphChartjs.vue';
 
 export default {
-  components: { ContentBox },
+  components: { ContentBox, BarGraphChartjs },
   props: {
     firstDate: {
       type: Object,
@@ -62,6 +65,10 @@ export default {
           typeof value.servers === 'object'
         );
       },
+    },
+    barGraph: {
+      type: Object,
+      required: true,
     },
   },
   computed: {
@@ -123,5 +130,8 @@ export default {
       color: color.$sub-1;
     }
   }
+}
+.bargraph__full {
+  width: 100%;
 }
 </style>

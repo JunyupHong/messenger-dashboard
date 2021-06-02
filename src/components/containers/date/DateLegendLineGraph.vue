@@ -16,7 +16,7 @@ export default {
     yLabel: String,
     legends: {
       type: Array,
-      require: true,
+      required: true,
     },
   },
   components: { DateLegendLineGraph },
