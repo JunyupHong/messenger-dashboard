@@ -1,12 +1,14 @@
 <template>
   <LineGraph :xLabel="xLabel" :yLabel="yLabel">
-    <LineGraphChartjs class="linegraph__full" :chartData="chartData" />
+    <LineGraphChartjs v-if="false" class="linegraph__full" :chartData="chartData" />
+    <LineGraphD3js v-else />
   </LineGraph>
 </template>
 
 <script>
 import LineGraph from '@/components/presentationals/LineGraph.vue';
 import LineGraphChartjs from '@/components/presentationals/graph/LineGraphChartjs.vue';
+import LineGraphD3js from '@/components/presentationals/graph/LineGraphD3js.vue';
 
 export default {
   props: {
@@ -17,7 +19,7 @@ export default {
       require: true,
     },
   },
-  components: { LineGraph, LineGraphChartjs },
+  components: { LineGraph, LineGraphChartjs, LineGraphD3js },
 };
 </script>
 
