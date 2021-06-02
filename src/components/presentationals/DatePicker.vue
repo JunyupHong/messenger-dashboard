@@ -13,6 +13,7 @@
     </article>
     <article v-else class="date-picker__date">
       <el-date-picker
+        class="date-picker__date--first"
         type="date"
         v-model="firstDate"
         :editable="false"
@@ -74,9 +75,21 @@ export default {
   justify-content: flex-end;
   padding: 24px 0;
   &__date {
+    &--first {
+      ::v-deep input {
+        border-color: color.$main-3;
+      }
+    }
     &--second {
       margin-left: 1.5rem;
+      ::v-deep input {
+        border-color: color.$sub-3;
+      }
     }
+  }
+}
+.date-picker__date--first {
+  ::v-deep input {
   }
 }
 </style>
