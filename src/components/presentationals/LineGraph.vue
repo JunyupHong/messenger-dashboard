@@ -32,7 +32,7 @@ export default {
   &__label {
     font-size: font.$small;
     font-weight: font.$bold;
-    color: color.$black-3;
+    color: color.$black-2;
   }
   &__y-label {
     writing-mode: vertical-lr;

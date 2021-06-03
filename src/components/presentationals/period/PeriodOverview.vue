@@ -69,8 +69,9 @@ export default {
 .content {
   &__desc {
     margin-top: 16px;
-    color: color.$black-3;
+    color: color.$black-2;
     font-size: font.$small;
+    font-weight: font.$medium;
   }
   &__value {
     font-size: font.$xx-big;
@@ -90,7 +91,7 @@ export default {
   &__percent {
     font-size: font.$big;
     font-weight: font.$bold;
-    color: color.$black-4;
+    color: color.$black-3;
     &[positive] {
       color: color.$sub-2;
     }

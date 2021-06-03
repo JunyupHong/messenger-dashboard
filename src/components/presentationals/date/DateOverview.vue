@@ -115,8 +115,9 @@ export default {
   padding: 20px;
   &__desc {
     margin-top: 16px;
-    color: color.$black-3;
+    color: color.$black-2;
     font-size: font.$small;
+    font-weight: font.$medium;
     text-align: center;
   }
   &__value {
