@@ -9,10 +9,14 @@
         <template #title>{{ contentInfo.title }}</template>
         <template #default>
           <p class="content__desc">{{ contentData[contentInfo.title].desc }}</p>
-          <strong class="content__value">{{ contentData[contentInfo.title].value }}</strong>
+          <strong class="content__value">{{
+            showNumber(contentData[contentInfo.title].value)
+          }}</strong>
           <p class="content__desc">{{ contentInfo.desc }}</p>
           <div class="content__prev">
-            <span class="content__prev-value">{{ contentData[contentInfo.title].prevValue }}</span>
+            <span class="content__prev-value">{{
+              showNumber(contentData[contentInfo.title].prevValue)
+            }}</span>
             <span class="content__percent" :positive="percents[i] > 0" :negative="percents[i] < 0">
               <span v-if="percents[i] > 0">+</span>{{ percents[i] }}%
             </span>
@@ -25,6 +29,7 @@
 
 <script>
 import ContentBox from '../ContentBox.vue';
+import { getNumberWithComma } from '@/utils/number.js';
 
 export default {
   props: {
@@ -48,6 +53,11 @@ export default {
       );
     },
   },
+  methods: {
+    showNumber(number) {
+      return getNumberWithComma(number);
+    },
+  },
 };
 </script>
 
@@ -69,8 +79,9 @@ export default {
 .content {
   &__desc {
     margin-top: 16px;
-    color: color.$black-3;
+    color: color.$black-2;
     font-size: font.$small;
+    font-weight: font.$medium;
   }
   &__value {
     font-size: font.$xx-big;
@@ -90,7 +101,7 @@ export default {
   &__percent {
     font-size: font.$big;
     font-weight: font.$bold;
-    color: color.$black-4;
+    color: color.$black-3;
     &[positive] {
       color: color.$sub-2;
     }

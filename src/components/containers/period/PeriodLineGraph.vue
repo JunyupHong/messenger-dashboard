@@ -13,8 +13,8 @@ export default {
         labels: [1, 2, 3, 4, 5, 6, 7],
         datasets: [
           {
-            label: 'My First Dataset',
-            data: Array.from({ length: 7 }).map(() => Math.random() * 100),
+            label: '동시 접속자 수',
+            data: Array.from({ length: 7 }).map(() => Math.round(Math.random() * 100)),
             fill: false,
             borderColor: '#2E447F',
             tension: 0.1,

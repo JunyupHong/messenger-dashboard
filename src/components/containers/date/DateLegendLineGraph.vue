@@ -72,7 +72,11 @@ export default {
       return {
         ...this.chartData,
         datasets: this.chartData.datasets
-          .map((dataset, i) => ({ ...dataset, borderColor: this.legends[i].color }))
+          .map((dataset, i) => ({
+            ...dataset,
+            borderColor: this.legends[i].color,
+            backgroundColor: this.legends[i].color,
+          }))
           .filter((_, i) => this.legends[i].active),
       };
     },
