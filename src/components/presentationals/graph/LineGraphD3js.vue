@@ -1,6 +1,45 @@
 <template>
   <div class="chart-wrapper">
-    <svg class="chart"></svg>
+    <svg class="chart">
+      <g class="chart__grid chart__grid-x"></g>
+      <g class="chart__grid chart__grid-y"></g>
+      <g class="chart__line">
+        <path class="chart__path chart__path--fisrt" :d="firstLine"></path>
+        <g>
+          <circle
+            class="chart__dot chart__dot--first"
+            v-for="(position, i) in firstLinePostition"
+            :key="`dot-firstdate-${i}-${position.x}-${position.y}`"
+            :r="circle.r"
+            :cx="position.x"
+            :cy="position.y"
+            fill="#2E447F"
+            @mouseover="setTooltip(position, firstDate[i])"
+            @mouseout="removeTooltip"
+          ></circle>
+        </g>
+      </g>
+      <g class="chart__line">
+        <path class="chart__path chart__path--second" :d="secondLine"></path>
+        <circle
+          class="chart__dot chart__dot--second"
+          v-for="(position, i) in secondLinePosition"
+          :key="`dot-firstdate-${i}-${position.x}-${position.y}`"
+          :r="circle.r"
+          :cx="position.x"
+          :cy="position.y"
+          fill="#CF4F2E"
+          @mouseover="setTooltip(position, secondDate[i])"
+          @mouseout="removeTooltip"
+        ></circle>
+      </g>
+    </svg>
+    <div class="tooltip" :style="tooltipStyle">
+      <div class="tooltip__title">[ {{ tooltip.time }}:00 ~ {{ tooltip.time }}:59 ]</div>
+      <div class="tooltip__content">
+        접속자 수 : <strong>{{ tooltip.count }}명</strong>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,9 +65,51 @@ export default {
         top: 4,
         bottom: 20,
       },
-      tooltip: null,
+      tooltip: { time: 0, count: 0, posX: 0, posY: 0, display: 'none' },
+      circle: {
+        r: 3,
+      },
     };
   },
+
+  computed: {
+    tooltipStyle() {
+      return {
+        left: this.tooltip.posX,
+        top: this.tooltip.posY,
+        display: this.tooltip.display,
+      };
+    },
+    firstLine() {
+      return d3
+        .line()
+        .x(d => this.xScale(this.times, this.width)(d.x))
+        .y(d => this.yScale(Math.max(...this.firstDate.map(d => d.y)), this.height)(d.y))(
+        this.firstDate
+      );
+    },
+    secondLine() {
+      return d3
+        .line()
+        .x(d => this.xScale(this.times, this.width)(d.x))
+        .y(d => this.yScale(Math.max(...this.secondDate.map(d => d.y)), this.height)(d.y))(
+        this.secondDate
+      );
+    },
+    firstLinePostition() {
+      return this.firstDate.map(first => ({
+        x: this.xScale(this.times, this.width)(first.x),
+        y: this.yScale(Math.max(...this.firstDate.map(d => d.y)), this.height)(first.y),
+      }));
+    },
+    secondLinePosition() {
+      return this.secondDate.map(second => ({
+        x: this.xScale(this.times, this.width)(second.x),
+        y: this.yScale(Math.max(...this.secondDate.map(d => d.y)), this.height)(second.y),
+      }));
+    },
+  },
+
   methods: {
     xScale(domain, width) {
       return d3.scalePoint().domain(domain).rangeRound([this.margin.left, width]);
@@ -40,29 +121,31 @@ export default {
         .nice()
         .range([height - this.margin.bottom, this.margin.top]);
     },
-    getTooltip(data) {
-      return `
-          <div> [ ${data.x}:00 ~ ${data.x}:59 ]</div>
-          <div> 접속자 수 : <strong>${data.y}명</strong> </div>
-      `;
+    setTooltip(position, data) {
+      this.tooltip.time = data.x;
+      this.tooltip.count = data.y;
+      this.tooltip.posX = position.x + 'px';
+      this.tooltip.posY = `calc(${position.y}px - 50%)`;
+      this.tooltip.display = 'block';
+    },
+    removeTooltip() {
+      this.tooltip.display = 'none';
     },
   },
+
   mounted() {
     const svg = d3.select('svg');
 
     this.width = parseInt(svg.style('width')) - this.margin.left;
     this.height = parseInt(svg.style('height'));
 
-    const svgG = svg.append('g');
-    svgG
-      .append('g')
-      .attr('class', 'grid grid__x')
+    svg
+      .select('.chart__grid-x')
       .attr('transform', `translate(0, ${this.height - this.margin.bottom})`)
       .call(d3.axisBottom(this.xScale(this.times, this.width)).tickSize(4));
 
-    svgG
-      .append('g')
-      .attr('class', 'grid grid__y')
+    svg
+      .select('.chart__grid-y')
       .attr('transform', `translate(${this.margin.left}, 0)`)
       .call(
         d3
@@ -70,90 +153,6 @@ export default {
           .ticks(4)
           .tickSize(-this.width + this.margin.left)
       );
-
-    const chartG = svg.append('g').attr('class', 'line-chart');
-    chartG
-      .append('g')
-      .append('path')
-      .datum(this.firstDate)
-      .attr('fill', 'none')
-      .attr('stroke', '#CF4F2E')
-      .attr('stroke-width', 1.5)
-      .attr(
-        'd',
-        d3
-          .line()
-          .x(d => this.xScale(this.times, this.width)(d.x))
-          .y(d => this.yScale(Math.max(...this.firstDate.map(d => d.y)), this.height)(d.y))
-      );
-    chartG
-      .append('g')
-      .selectAll('.dot')
-      .data(this.firstDate)
-      .enter()
-      .append('circle')
-      .attr('r', 3)
-      .attr('cx', d => this.xScale(this.times, this.width)(d.x))
-      .attr('cy', d => this.yScale(Math.max(...this.firstDate.map(d => d.y)), this.height)(d.y))
-      .attr('fill', '#CF4F2E')
-      .on('mouseover', (evt, d) => {
-        this.tooltip
-          .style('display', 'block')
-          .style(
-            'top',
-            `calc(${
-              this.yScale(Math.max(...this.firstDate.map(d => d.y)), this.height)(d.y) + 'px'
-            } - 40%)`
-          )
-          .style('left', this.xScale(this.times, this.width)(d.x) + 'px')
-          .html(this.getTooltip(d));
-      })
-      .on('mouseout', () => this.tooltip.style('display', 'none'));
-
-    chartG
-      .append('g')
-      .append('path')
-      .datum(this.secondDate)
-      .attr('fill', 'none')
-      .attr('stroke', '#2E447F')
-      .attr('stroke-width', 1.5)
-      .attr(
-        'd',
-        d3
-          .line()
-          .x(d => this.xScale(this.times, this.width)(d.x))
-          .y(d => this.yScale(Math.max(...this.secondDate.map(d => d.y)), this.height)(d.y))
-      );
-
-    chartG
-      .append('g')
-      .selectAll('.dot')
-      .data(this.secondDate)
-      .enter()
-      .append('circle')
-      .attr('r', 3)
-      .attr('cx', d => this.xScale(this.times, this.width)(d.x))
-      .attr('cy', d => this.yScale(Math.max(...this.secondDate.map(d => d.y)), this.height)(d.y))
-      .attr('fill', '#2E447F')
-      .on('mouseover', (evt, d) => {
-        this.tooltip
-          .style('display', 'block')
-          .style(
-            'top',
-            `calc(${
-              this.yScale(Math.max(...this.secondDate.map(d => d.y)), this.height)(d.y) + 'px'
-            } - 40%)`
-          )
-          .style('left', this.xScale(this.times, this.width)(d.x) + 'px')
-          .html(this.getTooltip(d));
-      })
-      .on('mouseout', () => this.tooltip.style('display', 'none'));
-
-    this.tooltip = d3
-      .select('.chart-wrapper')
-      .append('div')
-      .attr('class', 'tooltip')
-      .html(`<h1>tooltip</h1>`);
   },
 };
 </script>
@@ -163,19 +162,7 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-}
-.chart {
-  width: 100%;
-  height: 100%;
-  ::v-deep .grid {
-    font-size: 12px;
-    font-weight: 600;
-    color: #bbb;
-  }
-}
-
-.chart-wrapper {
-  ::v-deep .tooltip {
+  .tooltip {
     position: absolute;
     display: none;
     padding: 12px;
@@ -183,6 +170,33 @@ export default {
     opacity: 0.9;
     border-radius: 8px;
     text-align: center;
+  }
+}
+.chart {
+  width: 100%;
+  height: 100%;
+  &__grid {
+    font-size: 12px;
+    font-weight: font.$bold;
+    color: #bbb;
+  }
+
+  &__path {
+    fill: none;
+    stroke-width: 1.5;
+  }
+  &__path--fisrt {
+    stroke: color.$main-1;
+  }
+  &__path--second {
+    stroke: color.$sub-1;
+  }
+}
+
+.tooltip {
+  &__title {
+    font-weight: font.$bold;
+    margin-bottom: 8px;
   }
 }
 </style>
