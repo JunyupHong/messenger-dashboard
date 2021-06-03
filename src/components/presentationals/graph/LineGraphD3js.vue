@@ -34,7 +34,12 @@
         ></circle>
       </g>
     </svg>
-    <div class="tooltip"></div>
+    <div class="tooltip" :style="tooltipStyle">
+      <div class="tooltip__title">[ {{ tooltip.time }}:00 ~ {{ tooltip.time }}:59 ]</div>
+      <div class="tooltip__content">
+        접속자 수 : <strong>{{ tooltip.count }}명</strong>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -60,7 +65,7 @@ export default {
         top: 4,
         bottom: 20,
       },
-      tooltip: null,
+      tooltip: { time: 0, count: 0, posX: 0, posY: 0, display: 'none' },
       circle: {
         r: 3,
       },
@@ -68,6 +73,13 @@ export default {
   },
 
   computed: {
+    tooltipStyle() {
+      return {
+        left: this.tooltip.posX,
+        top: this.tooltip.posY,
+        display: this.tooltip.display,
+      };
+    },
     firstLine() {
       return d3
         .line()
@@ -109,21 +121,15 @@ export default {
         .nice()
         .range([height - this.margin.bottom, this.margin.top]);
     },
-    getTooltip(data) {
-      return `
-          <div> [ ${data.x}:00 ~ ${data.x}:59 ]</div>
-          <div> 접속자 수 : <strong>${data.y}명</strong> </div>
-      `;
-    },
     setTooltip(position, data) {
-      this.tooltip
-        .style('display', 'block')
-        .style('top', `calc(${position.y}px - 40%)`)
-        .style('left', position.x + 'px')
-        .html(this.getTooltip({ x: data.x, y: data.y }));
+      this.tooltip.time = data.x;
+      this.tooltip.count = data.y;
+      this.tooltip.posX = position.x + 'px';
+      this.tooltip.posY = `calc(${position.y}px - 50%)`;
+      this.tooltip.display = 'block';
     },
     removeTooltip() {
-      this.tooltip.style('display', 'none');
+      this.tooltip.display = 'none';
     },
   },
 
@@ -132,8 +138,6 @@ export default {
 
     this.width = parseInt(svg.style('width')) - this.margin.left;
     this.height = parseInt(svg.style('height'));
-
-    this.tooltip = d3.select('.tooltip');
 
     svg
       .select('.chart__grid-x')
@@ -186,6 +190,13 @@ export default {
   }
   &__path--second {
     stroke: color.$sub-1;
+  }
+}
+
+.tooltip {
+  &__title {
+    font-weight: font.$bold;
+    margin-bottom: 8px;
   }
 }
 </style>
