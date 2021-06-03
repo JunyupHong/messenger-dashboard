@@ -7,11 +7,15 @@
           <div class="content">
             <div>
               <p class="content__desc">{{ firstDate.desc }}</p>
-              <strong class="content__value content__value--first">{{ firstDate.max }}</strong>
+              <strong class="content__value content__value--first">{{
+                showNumber(firstDate.max)
+              }}</strong>
             </div>
             <div v-if="isValidSecondDate">
               <p class="content__desc">{{ secondDate.desc }}</p>
-              <strong class="content__value content__value--second">{{ secondDate.max }}</strong>
+              <strong class="content__value content__value--second">{{
+                showNumber(secondDate.max)
+              }}</strong>
             </div>
           </div>
         </template>
@@ -22,11 +26,15 @@
           <div class="content">
             <div>
               <p class="content__desc">{{ firstDate.desc }}</p>
-              <strong class="content__value content__value--first">{{ firstDate.total }}</strong>
+              <strong class="content__value content__value--first">{{
+                showNumber(firstDate.total)
+              }}</strong>
             </div>
             <div v-if="isValidSecondDate">
               <p class="content__desc">{{ secondDate.desc }}</p>
-              <strong class="content__value content__value--second">{{ secondDate.total }}</strong>
+              <strong class="content__value content__value--second">{{
+                showNumber(secondDate.total)
+              }}</strong>
             </div>
           </div>
         </template>
@@ -46,6 +54,7 @@
 <script>
 import ContentBox from '../ContentBox.vue';
 import BarGraphChartjs from '../graph/BarGraphChartjs.vue';
+import { getNumberWithComma } from '@/utils/number.js';
 
 export default {
   components: { ContentBox, BarGraphChartjs },
@@ -79,6 +88,11 @@ export default {
         typeof this.secondDate.total === 'number' &&
         typeof this.secondDate.servers === 'object'
       );
+    },
+  },
+  methods: {
+    showNumber(number) {
+      return getNumberWithComma(number);
     },
   },
 };

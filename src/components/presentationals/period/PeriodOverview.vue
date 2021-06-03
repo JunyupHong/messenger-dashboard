@@ -9,10 +9,14 @@
         <template #title>{{ contentInfo.title }}</template>
         <template #default>
           <p class="content__desc">{{ contentData[contentInfo.title].desc }}</p>
-          <strong class="content__value">{{ contentData[contentInfo.title].value }}</strong>
+          <strong class="content__value">{{
+            showNumber(contentData[contentInfo.title].value)
+          }}</strong>
           <p class="content__desc">{{ contentInfo.desc }}</p>
           <div class="content__prev">
-            <span class="content__prev-value">{{ contentData[contentInfo.title].prevValue }}</span>
+            <span class="content__prev-value">{{
+              showNumber(contentData[contentInfo.title].prevValue)
+            }}</span>
             <span class="content__percent" :positive="percents[i] > 0" :negative="percents[i] < 0">
               <span v-if="percents[i] > 0">+</span>{{ percents[i] }}%
             </span>
@@ -25,6 +29,7 @@
 
 <script>
 import ContentBox from '../ContentBox.vue';
+import { getNumberWithComma } from '@/utils/number.js';
 
 export default {
   props: {
@@ -46,6 +51,11 @@ export default {
       return Object.values(this.contentData).map(
         content => ((content.value - content.prevValue) * 100) / content.prevValue
       );
+    },
+  },
+  methods: {
+    showNumber(number) {
+      return getNumberWithComma(number);
     },
   },
 };
