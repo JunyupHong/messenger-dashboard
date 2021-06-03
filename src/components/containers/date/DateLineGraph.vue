@@ -14,20 +14,20 @@ export default {
   data() {
     return {
       chartData: {
-        labels: [1, 2, 3, 4, 5, 6, 7],
+        labels: Array.from({ length: 24 }).map((_, i) => i),
         datasets: [
           {
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            label: '2021.05.16',
+            backgroundColor: '#2E447F',
             fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
             tension: 0.1,
           },
           {
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40].reverse(),
+            label: '2021.05.18',
+            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
+            backgroundColor: '#CF4F2E',
             fill: false,
-            borderColor: 'red',
             tension: 0.1,
           },
         ],

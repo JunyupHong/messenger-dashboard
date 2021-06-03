@@ -11,12 +11,10 @@
           <p class="content__desc">{{ contentData[contentInfo.title].desc }}</p>
           <strong class="content__value">{{ contentData[contentInfo.title].value }}</strong>
           <p class="content__desc">{{ contentInfo.desc }}</p>
-          <div>
+          <div class="content__prev">
             <span class="content__prev-value">{{ contentData[contentInfo.title].prevValue }}</span>
-
             <span class="content__percent" :positive="percents[i] > 0" :negative="percents[i] < 0">
-              <span v-if="percents[i] > 0">+</span>
-              {{ percents[i] }}%
+              <span v-if="percents[i] > 0">+</span>{{ percents[i] }}%
             </span>
           </div>
         </template>
@@ -79,17 +77,20 @@ export default {
     font-weight: font.$bold;
     color: color.$main-1;
   }
+  &__prev {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
   &__prev-value {
     font-size: font.$big;
     font-weight: font.$bold;
     color: color.$main-4;
-    margin-right: 16px;
   }
   &__percent {
     font-size: font.$big;
     font-weight: font.$bold;
     color: color.$black-4;
-    margin-left: 16px;
     &[positive] {
       color: color.$sub-2;
     }

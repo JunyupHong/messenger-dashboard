@@ -18,7 +18,7 @@ export default {
 
   data() {
     return {
-      period: [new Date(), new Date()],
+      period: [new Date().getTime() - 3 * 60 * 60 * 24 * 1000, new Date()],
       date: [new Date()],
     };
   },

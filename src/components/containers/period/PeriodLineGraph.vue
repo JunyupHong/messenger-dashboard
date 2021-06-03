@@ -14,9 +14,9 @@ export default {
         datasets: [
           {
             label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: Array.from({ length: 7 }).map(() => Math.random() * 100),
             fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            borderColor: '#2E447F',
             tension: 0.1,
           },
         ],
