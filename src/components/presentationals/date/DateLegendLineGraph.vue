@@ -1,7 +1,12 @@
 <template>
   <section class="legend-linegraph">
     <article class="legend">
-      <div class="legend__item" v-for="(legend, i) in legends" :key="`legend-${i}-${legend.color}`">
+      <div
+        class="legend__item"
+        v-for="(legend, i) in legends"
+        :key="`legend-${i}-${legend.color}`"
+        @click="() => onClickLegend(legend)"
+      >
         <span
           class="legend__color"
           :style="{ background: legend.active ? legend.color : 'none', borderColor: legend.color }"
@@ -35,6 +40,11 @@ export default {
     },
   },
   components: { LineGraph, LineGraphChartjs },
+  methods: {
+    onClickLegend(legend) {
+      this.$emit('toggleLegend', legend);
+    },
+  },
 };
 </script>
 
