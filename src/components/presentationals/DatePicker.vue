@@ -35,7 +35,7 @@
 export default {
   props: {
     type: String,
-    value: Array,
+    dateValue: Array,
   },
   computed: {
     isPeriodPage() {
@@ -43,7 +43,7 @@ export default {
     },
     period: {
       get() {
-        return this.value;
+        return this.dateValue;
       },
       set(newPeriod) {
         this.$emit('changePeriod', newPeriod);
@@ -51,18 +51,18 @@ export default {
     },
     firstDate: {
       get() {
-        return this.value[0];
+        return this.dateValue[0];
       },
       set(newFirstDate) {
-        this.$emit('changeDate', [newFirstDate, this.value[1]]);
+        this.$emit('changeDate', [newFirstDate, this.dateValue[1]]);
       },
     },
     secondDate: {
       get() {
-        return this.value[1];
+        return this.dateValue[1];
       },
       set(newSecondDate) {
-        this.$emit('changeDate', [this.value[0], newSecondDate]);
+        this.$emit('changeDate', [this.dateValue[0], newSecondDate]);
       },
     },
   },
