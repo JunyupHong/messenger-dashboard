@@ -9,7 +9,6 @@
 
 <script>
 import DatePicker from '../presentationals/DatePicker.vue';
-import a from '@/api';
 
 export default {
   props: {
@@ -34,7 +33,6 @@ export default {
   methods: {
     onChangePeriod(newPeriod) {
       this.period = newPeriod;
-      console.log(a);
     },
     onChangeDate(newData) {
       this.date = newData;
