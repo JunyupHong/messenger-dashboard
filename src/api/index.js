@@ -4,7 +4,7 @@ const baseURL = 'https://dev-msgr-statistics-api.hiworks.com/v1/statistics';
 const getDateQuery = date => `/today/${date}`;
 const getPeriodQuery = (startDate, endDate) => `/term/start-date/${startDate}/end-date/${endDate}`;
 
-const fetchDate = async date => {
+export const fetchDate = async date => {
   try {
     const response = await axios.get(baseURL + getDateQuery(date));
     return response.data;
@@ -13,7 +13,7 @@ const fetchDate = async date => {
   }
 };
 
-const fetchPeriod = async (startDate, endDate) => {
+export const fetchPeriod = async (startDate, endDate) => {
   try {
     const response = await axios.get(baseURL + getPeriodQuery(startDate, endDate));
     return response.data;
@@ -21,8 +21,6 @@ const fetchPeriod = async (startDate, endDate) => {
     throw new Error(`${e.message}\nFetch Period : ${baseURL + getPeriodQuery(startDate, endDate)}`);
   }
 };
-
-export { fetchDate, fetchPeriod };
 
 export default {
   fetchDate,

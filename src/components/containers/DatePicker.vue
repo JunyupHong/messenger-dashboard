@@ -38,6 +38,9 @@ export default {
       this.date = newData;
     },
   },
+  mounted() {
+    console.log(this.$store);
+  },
 };
 </script>
 
