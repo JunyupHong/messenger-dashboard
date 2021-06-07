@@ -9,6 +9,7 @@
 
 <script>
 import DatePicker from '../presentationals/DatePicker.vue';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -17,29 +18,21 @@ export default {
 
   components: { DatePicker },
 
-  data() {
-    return {
-      period: [new Date().getTime() - 3 * 60 * 60 * 24 * 1000, new Date()],
-      date: [new Date()],
-    };
-  },
-
-  computed: {
-    dateValue() {
-      return this.type === 'period' ? this.period : this.date;
+  computed: mapState({
+    dateValue(state) {
+      return this.type === 'period'
+        ? state.period.period
+        : [state.date.firstDate, state.date.secondDate];
     },
-  },
+  }),
 
   methods: {
     onChangePeriod(newPeriod) {
-      this.period = newPeriod;
+      this.$store.commit({ type: 'changePeriod', period: newPeriod });
     },
-    onChangeDate(newData) {
-      this.date = newData;
+    onChangeDate(newDate) {
+      this.$store.commit({ type: 'changeDate', date: newDate });
     },
-  },
-  mounted() {
-    console.log(this.$store);
   },
 };
 </script>
