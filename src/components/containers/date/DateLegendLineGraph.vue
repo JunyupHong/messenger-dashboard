@@ -1,5 +1,11 @@
 <template>
-  <DateLegendLineGraph :xLabel="xLabel" :yLabel="yLabel" :legends="legends" :chartData="chart" />
+  <DateLegendLineGraph
+    :xLabel="xLabel"
+    :yLabel="yLabel"
+    :legends="legends"
+    :chartData="chart"
+    @toggleLegend="toggleLegend"
+  />
 </template>
 
 <script>
@@ -79,6 +85,11 @@ export default {
           }))
           .filter((_, i) => this.legends[i].active),
       };
+    },
+  },
+  methods: {
+    toggleLegend(legend) {
+      this.$emit('toggleLegend', legend);
     },
   },
 };
