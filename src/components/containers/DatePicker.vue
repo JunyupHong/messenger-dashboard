@@ -1,7 +1,7 @@
 <template>
   <DatePicker
     :type="type"
-    v-model="dateValue"
+    :dateValue="dateValue"
     @changePeriod="onChangePeriod"
     @changeDate="onChangeDate"
   />

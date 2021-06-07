@@ -13,6 +13,7 @@
         yLabel="동시 접속자 수"
         :legends="firstDateLegends"
         type="first"
+        @toggleLegend="toggleFirstLegend"
       />
     </ContentsWrapper>
     <ContentsWrapper title="서버 별 동시 접속자 수 변화 - 2021.05.18">
@@ -21,6 +22,7 @@
         yLabel="동시 접속자 수"
         :legends="secondDateLegends"
         type="second"
+        @toggleLegend="toggleSecondLegend"
       />
     </ContentsWrapper>
   </div>
@@ -57,6 +59,22 @@ export default {
         { color: '#cccccc', name: 'KBS (182)', active: true },
       ],
     };
+  },
+  methods: {
+    toggleFirstLegend(legend) {
+      const index = this.firstDateLegends.findIndex(
+        firstLegend => firstLegend.name === legend.name
+      );
+      if (index === -1) return;
+      this.firstDateLegends[index].active = !this.firstDateLegends[index].active;
+    },
+    toggleSecondLegend(legend) {
+      const index = this.secondDateLegends.findIndex(
+        secondLegend => secondLegend.name === legend.name
+      );
+      if (index === -1) return;
+      this.secondDateLegends[index].active = !this.secondDateLegends[index].active;
+    },
   },
 };
 </script>
