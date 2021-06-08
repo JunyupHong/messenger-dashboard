@@ -54,7 +54,7 @@ export default {
       if (this.selectedDate[1]) {
         datasets.push({
           label: dateToString(this.selectedDate[1], 'YYYY.MM.DD'),
-          data: this.firstDateServers.map(server =>
+          data: this.secondDateServers.map(server =>
             server.reduce((acc, cur) => acc + cur.max_user, 0)
           ),
           backgroundColor: '#CF4F2E',

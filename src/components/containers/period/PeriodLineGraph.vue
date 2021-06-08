@@ -29,6 +29,7 @@ export default {
             data: this.userCounts,
             fill: false,
             borderColor: '#2E447F',
+            backgroundColor: '#2E447F',
             tension: 0.1,
           },
         ],

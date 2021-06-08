@@ -38,6 +38,18 @@ const date = {
         .values()
         .value();
     },
+    firstDateByTimes(state) {
+      return _(state.firstDate)
+        .groupBy(date => date.conn_hours)
+        .values()
+        .value();
+    },
+    secondDateByTimes(state) {
+      return _(state.secondDate)
+        .groupBy(date => date.conn_hours)
+        .values()
+        .value();
+    },
   },
 
   mutations: {
