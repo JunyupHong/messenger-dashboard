@@ -116,7 +116,7 @@ const period = {
   },
   mutations: {
     changePeriod(state, payload) {
-      state.selectedPeriod = payload.period;
+      state.selectedPeriod = payload;
     },
     changeUserCounts(state, payload) {
       state.userCounts = payload.userCounts;

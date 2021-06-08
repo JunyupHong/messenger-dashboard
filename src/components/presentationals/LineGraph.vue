@@ -26,14 +26,17 @@ export default {
   position: relative;
   display: flex;
   min-width: 1000px;
+
   &__right {
     flex: 1;
   }
+
   &__label {
     font-size: font.$small;
     font-weight: font.$bold;
     color: color.$black-2;
   }
+
   &__y-label {
     writing-mode: vertical-lr;
     text-orientation: sideways;
@@ -41,6 +44,7 @@ export default {
     transform: rotate(180deg);
     margin-right: 8px;
   }
+
   &__x-label {
     text-align: center;
     margin-top: 8px;

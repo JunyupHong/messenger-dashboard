@@ -3,13 +3,14 @@
     :type="type"
     :dateValue="dateValue"
     @changePeriod="onChangePeriod"
-    @changeDate="onChangeDate"
+    @changeFirstDate="onChangeFirstDate"
+    @changeSecondDate="onChangeSecondDate"
   />
 </template>
 
 <script>
 import DatePicker from '../presentationals/DatePicker.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -18,26 +19,34 @@ export default {
 
   components: { DatePicker },
 
-  computed: mapState({
-    dateValue(state) {
-      return this.type === 'period'
-        ? state.period.selectedPeriod
-        : [state.date.firstDate, state.date.secondDate];
-    },
-  }),
+  computed: {
+    ...mapState({
+      dateValue(state) {
+        return this.type === 'period' ? state.period.selectedPeriod : this.selectedDate;
+      },
+    }),
+    ...mapGetters(['selectedDate']),
+  },
 
   methods: {
+    ...mapMutations(['changePeriod', 'changeFirstDate', 'changeSecondDate']),
+    ...mapActions(['fetchPeriod', 'fetchFirstDate', 'fetchSecondDate']),
     async onChangePeriod(newPeriod) {
-      this.$store.commit({ type: 'changePeriod', period: newPeriod });
-      await this.$store.dispatch('fetchPeriod');
+      this.changePeriod(newPeriod);
+      await this.fetchPeriod();
     },
-    onChangeDate(newDate) {
-      this.$store.commit({ type: 'changeDate', date: newDate });
+    async onChangeFirstDate(newDate) {
+      this.changeFirstDate(newDate);
+      await this.fetchFirstDate();
+    },
+    async onChangeSecondDate(newDate) {
+      this.changeSecondDate(newDate);
+      await this.fetchSecondDate();
     },
   },
   async mounted() {
-    if (this.type === 'period') await this.$store.dispatch('fetchPeriod');
-    else if (this.type === 'date') console.log('fetch date');
+    if (this.type === 'period') await this.fetchPeriod();
+    else if (this.type === 'date') await this.fetchFirstDate();
   },
 };
 </script>
