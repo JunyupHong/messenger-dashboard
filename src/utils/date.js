@@ -4,18 +4,32 @@ export const dateToString = (date, format = 'YYYY-MM-DD') => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-
-  let result = format;
-  result = result.replace('YYYY', year);
-  result = result.replace('YY', year % 100);
-
-  result = result.replace('MM', doubleDigits(month));
-  result = result.replace('M', month);
-
-  result = result.replace('DD', doubleDigits(day));
-  result = result.replace('D', day);
-
-  return result;
+  return format
+    .replace('YYYY', year)
+    .replace('YY', year % 100)
+    .replace('MM', doubleDigits(month))
+    .replace('M', month)
+    .replace('DD', doubleDigits(day))
+    .replace('D', day);
 };
 
-export default { dateToString };
+export const getWeekNumber = date => {
+  const compare = new Date(new Date(date).setDate(1));
+  while (compare.getDay() !== 1) {
+    compare.setDate(compare.getDate() + 1);
+  }
+  if (compare > date) {
+    compare.setMonth(compare.getMonth() - 1);
+    while (compare.getDay() !== 1) {
+      compare.setDate(compare.getDate() + 1);
+    }
+  }
+  let weekNumber = 0;
+  while (compare <= date) {
+    weekNumber++;
+    compare.setDate(compare.getDate() + 7);
+  }
+  return weekNumber;
+};
+
+export default { dateToString, getWeekNumber };

@@ -7,7 +7,7 @@ const getPeriodQuery = (startDate, endDate) => `/term/start-date/${startDate}/en
 export const fetchDate = async date => {
   try {
     const response = await axios.get(baseURL + getDateQuery(date));
-    return response.data;
+    return response.data.data;
   } catch (e) {
     throw new Error(` ${e.message}\nFetch Date : ${baseURL + getDateQuery(date)}`);
   }
@@ -16,7 +16,7 @@ export const fetchDate = async date => {
 export const fetchPeriod = async (startDate, endDate) => {
   try {
     const response = await axios.get(baseURL + getPeriodQuery(startDate, endDate));
-    return response.data;
+    return response.data.data;
   } catch (e) {
     throw new Error(`${e.message}\nFetch Period : ${baseURL + getPeriodQuery(startDate, endDate)}`);
   }

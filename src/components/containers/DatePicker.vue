@@ -27,15 +27,17 @@ export default {
   }),
 
   methods: {
-    onChangePeriod(newPeriod) {
+    async onChangePeriod(newPeriod) {
       this.$store.commit({ type: 'changePeriod', period: newPeriod });
+      await this.$store.dispatch('fetchPeriod');
     },
     onChangeDate(newDate) {
       this.$store.commit({ type: 'changeDate', date: newDate });
     },
   },
   async mounted() {
-    // await this.$store.dispatch('fetchPeriod');
+    if (this.type === 'period') await this.$store.dispatch('fetchPeriod');
+    else if (this.type === 'date') console.log('fetch date');
   },
 };
 </script>

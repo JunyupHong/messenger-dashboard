@@ -4,20 +4,38 @@
 
 <script>
 import PeriodOverview from '@/components/presentationals/period/PeriodOverview.vue';
+import { dateToString, getWeekNumber } from '@/utils/date.js';
 
 export default {
   components: {
     PeriodOverview,
   },
-  data() {
-    return {
-      contentData: {
-        day: { value: 63488, desc: '2015.02.11', prevValue: 63488 },
-        week: { value: 317440, desc: '2015.02 2주차', prevValue: 400000 },
-        month: { value: 1269760, desc: '2015.02', prevValue: 1000000 },
-        custom: { value: 317440, desc: '설정 기간', prevValue: 400000 },
-      },
-    };
+  computed: {
+    contentData() {
+      return {
+        day: {
+          value: this.$store.getters.totalDay,
+          desc: dateToString(new Date(new Date().setFullYear(2020)), 'YYYY.MM.DD'),
+          prevValue: this.$store.getters.totalPrevDay,
+        },
+        week: {
+          value: this.$store.getters.totalWeek,
+          desc: `${dateToString(new Date(new Date().setFullYear(2020)), 'YYYY.MM')}
+                 ${getWeekNumber(new Date(new Date().setFullYear(2020)))}주차`,
+          prevValue: this.$store.getters.totalPrevWeek,
+        },
+        month: {
+          value: this.$store.getters.totalMonth,
+          desc: dateToString(new Date(new Date().setFullYear(2020)), 'YYYY.MM'),
+          prevValue: this.$store.getters.totalPrevMonth,
+        },
+        custom: {
+          value: this.$store.getters.totalCustom,
+          desc: '설정 기간',
+          prevValue: this.$store.getters.totalPrevCustom,
+        },
+      };
+    },
   },
 };
 </script>

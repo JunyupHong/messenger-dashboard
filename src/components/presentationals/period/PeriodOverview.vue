@@ -35,7 +35,9 @@ export default {
   props: {
     contentData: { type: Object, required: true },
   },
+
   components: { ContentBox },
+
   data() {
     return {
       contentsInfo: [
@@ -46,13 +48,17 @@ export default {
       ],
     };
   },
+
   computed: {
     percents() {
-      return Object.values(this.contentData).map(
-        content => ((content.value - content.prevValue) * 100) / content.prevValue
+      return Object.values(this.contentData).map(content =>
+        content.prevValue === 0
+          ? '-'
+          : (((content.value - content.prevValue) * 100) / content.prevValue).toFixed(2)
       );
     },
   },
+
   methods: {
     showNumber(number) {
       return getNumberWithComma(number);
