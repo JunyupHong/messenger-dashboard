@@ -28,58 +28,6 @@ const date = {
     ],
   }),
 
-  getters: {
-    selectedDate(state) {
-      return [state.firstSelectedDate, state.secondSelectedDate];
-    },
-    totalFirstDate(state) {
-      return state.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
-    },
-    maxFirstDate(state) {
-      return (
-        _(state.firstDate)
-          .groupBy(date => date.conn_hours)
-          .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
-          .max() || 0
-      );
-    },
-    totalSecondDate(state) {
-      return state.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
-    },
-    maxSecondDate(state) {
-      return (
-        _(state.secondDate)
-          .groupBy(date => date.conn_hours)
-          .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
-          .max() || 0
-      );
-    },
-    firstDateServers(state) {
-      return _(state.firstDate)
-        .groupBy(date => date.serverinfo_uid)
-        .values()
-        .value();
-    },
-    secondDateServers(state) {
-      return _(state.secondDate)
-        .groupBy(date => date.serverinfo_uid)
-        .values()
-        .value();
-    },
-    firstDateByTimes(state) {
-      return _(state.firstDate)
-        .groupBy(date => date.conn_hours)
-        .values()
-        .value();
-    },
-    secondDateByTimes(state) {
-      return _(state.secondDate)
-        .groupBy(date => date.conn_hours)
-        .values()
-        .value();
-    },
-  },
-
   mutations: {
     changeFirstDate(state, payload) {
       state.firstSelectedDate = payload;

@@ -5,21 +5,52 @@
 <script>
 import DateOverview from '@/components/presentationals/date/DateOverview.vue';
 import { dateToString } from '@/utils/date.js';
-import { mapGetters } from 'vuex';
+import { mapState } from 'vuex';
+import * as _ from 'lodash';
 
 export default {
   components: { DateOverview },
 
   computed: {
-    ...mapGetters([
-      'selectedDate',
-      'totalFirstDate',
-      'maxFirstDate',
-      'totalSecondDate',
-      'maxSecondDate',
-      'firstDateServers',
-      'secondDateServers',
-    ]),
+    ...mapState({
+      selectedDate(state) {
+        return [state.date.firstSelectedDate, state.date.secondSelectedDate];
+      },
+      totalFirstDate(state) {
+        return state.date.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
+      },
+      maxFirstDate(state) {
+        return (
+          _(state.date.firstDate)
+            .groupBy(date => date.conn_hours)
+            .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
+            .max() || 0
+        );
+      },
+      totalSecondDate(state) {
+        return state.date.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
+      },
+      maxSecondDate(state) {
+        return (
+          _(state.date.secondDate)
+            .groupBy(date => date.conn_hours)
+            .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
+            .max() || 0
+        );
+      },
+      firstDateServers(state) {
+        return _(state.date.firstDate)
+          .groupBy(date => date.serverinfo_uid)
+          .values()
+          .value();
+      },
+      secondDateServers(state) {
+        return _(state.date.secondDate)
+          .groupBy(date => date.serverinfo_uid)
+          .values()
+          .value();
+      },
+    }),
 
     firstDate() {
       return {

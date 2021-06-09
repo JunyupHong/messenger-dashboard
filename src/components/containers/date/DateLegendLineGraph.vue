@@ -19,6 +19,10 @@ export default {
       type: Array,
       required: true,
     },
+    servers: {
+      type: Array,
+      required: true,
+    },
     type: String,
   },
 
@@ -29,30 +33,19 @@ export default {
       return {
         labels: Array.from({ length: 24 }).map((_, i) => i),
         datasets: this.servers
-          .map((dataset, i) => ({
-            ...dataset,
-            borderColor: this.$store.state.date[`${this.type}DateLegends`][i].color,
-            backgroundColor: this.$store.state.date[`${this.type}DateLegends`][i].color,
+          .map((server, i) => ({
+            label: server[0].server_ip,
+            data: server.map(time => time.max_user),
+            borderColor: this.legends[i].color,
+            backgroundColor: this.legends[i].color,
             fill: false,
             tension: 0.1,
           }))
-          .filter((_, i) => this.$store.state.date[`${this.type}DateLegends`][i].active),
+          .filter((_, i) => this.legends[i].active),
       };
     },
-    servers() {
-      if (this.type === 'first') {
-        return this.$store.getters.firstDateServers.map(server => ({
-          label: server[0].server_ip,
-          data: server.map(time => time.max_user),
-        }));
-      } else {
-        return this.$store.getters.secondDateServers.map(server => ({
-          label: server[0].server_ip,
-          data: server.map(time => time.max_user),
-        }));
-      }
-    },
   },
+
   methods: {
     toggleLegend(legend) {
       if (this.type === 'first') {

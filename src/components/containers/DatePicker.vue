@@ -10,7 +10,7 @@
 
 <script>
 import DatePicker from '../presentationals/DatePicker.vue';
-import { mapState, mapActions, mapMutations, mapGetters } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -24,8 +24,10 @@ export default {
       dateValue(state) {
         return this.type === 'period' ? state.period.selectedPeriod : this.selectedDate;
       },
+      selectedDate(state) {
+        return [state.date.firstSelectedDate, state.date.secondSelectedDate];
+      },
     }),
-    ...mapGetters(['selectedDate']),
   },
 
   methods: {
