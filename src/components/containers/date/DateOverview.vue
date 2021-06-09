@@ -85,9 +85,12 @@ export default {
       if (this.selectedDate[1]) {
         datasets.push({
           label: dateToString(this.selectedDate[1], 'YYYY.MM.DD'),
-          data: this.secondDateServers.map(server =>
-            server.reduce((acc, cur) => acc + cur.max_user, 0)
-          ),
+          data:
+            this.secondDateServers.length > 0
+              ? this.secondDateServers.map(server =>
+                  server.reduce((acc, cur) => acc + cur.max_user, 0)
+                )
+              : Array.from({ length: 6 }).map(() => 0),
           backgroundColor: '#CF4F2E',
           barThickness: 16,
         });

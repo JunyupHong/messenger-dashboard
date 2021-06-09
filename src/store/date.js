@@ -3,28 +3,29 @@ import { dateToString } from '@/utils/date.js';
 import cloneDeep from 'lodash/cloneDeep';
 
 const date = {
+  namespaced: true,
   state: () => ({
     firstSelectedDate: new Date(new Date().setFullYear(2020)),
     secondSelectedDate: null,
     firstDate: [],
     secondDate: [],
     firstDateLegends: [
-      { color: '#00519E', name: '사내 (54)', active: true },
-      { color: '#2E447F', name: '일반 (93)', active: false },
-      { color: '#1D7ABD', name: '단독 (242)', active: true },
-      { color: '#89C6E1', name: '전용 (198)', active: false },
-      { color: '#90BEDE', name: '전옹 (88)', active: true },
-      { color: '#000000', name: '전용 (97)', active: false },
-      { color: '#cccccc', name: 'KBS (182)', active: false },
+      { name: '사내 (54)', color: '#00519E', active: true },
+      { name: '일반 (93)', color: '#2E447F', active: false },
+      { name: '단독 (242)', color: '#1D7ABD', active: true },
+      { name: '전용 (198)', color: '#89C6E1', active: false },
+      { name: '전옹 (88)', color: '#90BEDE', active: true },
+      { name: '전용 (97)', color: '#000000', active: false },
+      { name: 'KBS (182)', color: '#cccccc', active: false },
     ],
     secondDateLegends: [
-      { color: '#E75113', name: '사내 (54)', active: true },
-      { color: '#F9B200', name: '일반 (93)', active: false },
-      { color: '#E7823F', name: '단독 (242)', active: true },
-      { color: '#CF4F2E', name: '전용 (198)', active: false },
-      { color: '#EA7D24', name: '전옹 (88)', active: false },
-      { color: '#000000', name: '전용 (97)', active: false },
-      { color: '#cccccc', name: 'KBS (182)', active: true },
+      { name: '사내 (54)', color: '#E75113', active: true },
+      { name: '일반 (93)', color: '#F9B200', active: false },
+      { name: '단독 (242)', color: '#E7823F', active: true },
+      { name: '전용 (198)', color: '#CF4F2E', active: false },
+      { name: '전옹 (88)', color: '#EA7D24', active: false },
+      { name: '전용 (97)', color: '#000000', active: false },
+      { name: 'KBS (182)', color: '#cccccc', active: true },
     ],
   }),
 

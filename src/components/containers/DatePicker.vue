@@ -20,10 +20,12 @@ export default {
   components: { DatePicker },
 
   computed: {
-    ...mapState({
+    ...mapState('period', {
       dateValue(state) {
-        return this.type === 'period' ? state.period.selectedPeriod : this.selectedDate;
+        return this.type === 'period' ? state.selectedPeriod : this.selectedDate;
       },
+    }),
+    ...mapState({
       selectedDate(state) {
         return [state.date.firstSelectedDate, state.date.secondSelectedDate];
       },
@@ -31,8 +33,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['changePeriod', 'changeFirstDate', 'changeSecondDate']),
-    ...mapActions(['fetchPeriod', 'fetchFirstDate', 'fetchSecondDate']),
+    ...mapMutations('period', ['changePeriod']),
+    ...mapActions('period', ['fetchPeriod']),
+    ...mapMutations('date', ['changeFirstDate', 'changeSecondDate']),
+    ...mapActions('date', ['fetchFirstDate', 'fetchSecondDate']),
     async onChangePeriod(newPeriod) {
       this.changePeriod(newPeriod);
       await this.fetchPeriod();
