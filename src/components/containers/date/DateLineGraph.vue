@@ -8,7 +8,6 @@ import { dateToString } from '@/utils/date.js';
 import { mapState } from 'vuex';
 import flow from 'lodash/flow';
 import groupBy from 'lodash/groupBy';
-import values from 'lodash/values';
 
 export default {
   props: {
@@ -20,7 +19,7 @@ export default {
 
   methods: {
     dateByTimes(dateData) {
-      return flow(date => groupBy(date, hour => hour.conn_hours), values)(dateData);
+      return flow(date => groupBy(date, hour => hour.conn_hours), Object.values)(dateData);
     },
   },
 

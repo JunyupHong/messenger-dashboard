@@ -40,7 +40,6 @@ import DateLegendLineGraph from '@/components/containers/date/DateLegendLineGrap
 import { dateToString } from '@/utils/date.js';
 import flow from 'lodash/flow';
 import groupBy from 'lodash/groupBy';
-import values from 'lodash/values';
 import { mapState } from 'vuex';
 
 export default {
@@ -49,7 +48,7 @@ export default {
 
   methods: {
     dateByServer(dateData) {
-      return flow(date => groupBy(date, server => server.serverinfo_uid), values)(dateData);
+      return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
     },
   },
 
