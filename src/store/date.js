@@ -1,6 +1,6 @@
 import { fetchDate } from '@/api';
 import { dateToString } from '@/utils/date.js';
-import * as _ from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 
 const date = {
   state: () => ({
@@ -42,13 +42,13 @@ const date = {
       state.secondDate = payload.data;
     },
     toggleFirstDateLegend(state, payload) {
-      const newLegend = _.cloneDeep(state.firstDateLegends);
+      const newLegend = cloneDeep(state.firstDateLegends);
       const idx = state.firstDateLegends.findIndex(legend => legend.name === payload.legend.name);
       newLegend.splice(idx, 1, { ...payload.legend, active: !state.firstDateLegends[idx].active });
       state.firstDateLegends = newLegend;
     },
     toggleSecondDateLegend(state, payload) {
-      const newLegend = _.cloneDeep(state.secondDateLegends);
+      const newLegend = cloneDeep(state.secondDateLegends);
       const idx = state.secondDateLegends.findIndex(legend => legend.name === payload.legend.name);
       newLegend.splice(idx, 1, { ...payload.legend, active: !state.secondDateLegends[idx].active });
       state.secondDateLegends = newLegend;

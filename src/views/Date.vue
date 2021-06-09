@@ -38,12 +38,20 @@ import DateOverview from '@/components/containers/date/DateOverview.vue';
 import DateLineGraph from '@/components/containers/date/DateLineGraph.vue';
 import DateLegendLineGraph from '@/components/containers/date/DateLegendLineGraph.vue';
 import { dateToString } from '@/utils/date.js';
-import * as _ from 'lodash';
+import flow from 'lodash/flow';
+import groupBy from 'lodash/groupBy';
+import values from 'lodash/values';
 import { mapState } from 'vuex';
 
 export default {
   name: 'Date',
   components: { ContentsWrapper, DatePicker, DateOverview, DateLineGraph, DateLegendLineGraph },
+
+  methods: {
+    dateByServer(dateData) {
+      return flow(date => groupBy(date, server => server.serverinfo_uid), values)(dateData);
+    },
+  },
 
   computed: {
     ...mapState({
@@ -51,17 +59,11 @@ export default {
       secondSelectedDate: state => state.date.secondSelectedDate,
 
       firstDateServer(state) {
-        return _(state.date.firstDate)
-          .groupBy(date => date.serverinfo_uid)
-          .values()
-          .value();
+        return this.dateByServer(state.date.firstDate);
       },
 
       secondDateServer(state) {
-        return _(state.date.secondDate)
-          .groupBy(date => date.serverinfo_uid)
-          .values()
-          .value();
+        return this.dateByServer(state.date.secondDate);
       },
     }),
 

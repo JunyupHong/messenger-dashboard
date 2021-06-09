@@ -6,7 +6,9 @@
 import DateLineGraph from '@/components/presentationals/date/DateLineGraph.vue';
 import { dateToString } from '@/utils/date.js';
 import { mapState } from 'vuex';
-import * as _ from 'lodash';
+import flow from 'lodash/flow';
+import groupBy from 'lodash/groupBy';
+import values from 'lodash/values';
 
 export default {
   props: {
@@ -16,24 +18,21 @@ export default {
 
   components: { DateLineGraph },
 
+  methods: {
+    dateByTimes(dateData) {
+      return flow(date => groupBy(date, hour => hour.conn_hours), values)(dateData);
+    },
+  },
+
   computed: {
     ...mapState({
-      selectedDate(state) {
-        return [state.date.firstSelectedDate, state.date.secondSelectedDate];
-      },
+      selectedDate: state => [state.date.firstSelectedDate, state.date.secondSelectedDate],
 
       firstDateByTimes(state) {
-        return _(state.date.firstDate)
-          .groupBy(date => date.conn_hours)
-          .values()
-          .value();
+        return this.dateByTimes(state.date.firstDate);
       },
-
       secondDateByTimes(state) {
-        return _(state.date.secondDate)
-          .groupBy(date => date.conn_hours)
-          .values()
-          .value();
+        return this.dateByTimes(state.date.secondDate);
       },
     }),
 
@@ -68,7 +67,5 @@ export default {
       };
     },
   },
-
-  mounted() {},
 };
 </script>
