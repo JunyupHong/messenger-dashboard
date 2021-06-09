@@ -24,14 +24,14 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      selectedDate: state => [state.date.firstSelectedDate, state.date.secondSelectedDate],
+    ...mapState('date', {
+      selectedDate: state => [state.firstSelectedDate, state.secondSelectedDate],
 
       firstDateByTimes(state) {
-        return this.dateByTimes(state.date.firstDate);
+        return this.dateByTimes(state.firstDate);
       },
       secondDateByTimes(state) {
-        return this.dateByTimes(state.date.secondDate);
+        return this.dateByTimes(state.secondDate);
       },
     }),
 

@@ -11,19 +11,19 @@
       <DateLegendLineGraph
         xLabel="시간"
         yLabel="동시 접속자 수"
-        :legends="this.$store.state.date.firstDateLegends"
+        :legends="firstDateLegends"
         :servers="firstDateServer"
         type="first"
       />
     </ContentsWrapper>
     <ContentsWrapper
-      v-if="this.$store.state.date.secondSelectedDate"
+      v-if="secondSelectedDate"
       :title="`서버 별 동시 접속자 수 변화 - ${selectedSecondDate}`"
     >
       <DateLegendLineGraph
         xLabel="시간"
         yLabel="동시 접속자 수"
-        :legends="this.$store.state.date.secondDateLegends"
+        :legends="secondDateLegends"
         :servers="secondDateServer"
         type="second"
       />
@@ -53,16 +53,18 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      firstSelectedDate: state => state.date.firstSelectedDate,
-      secondSelectedDate: state => state.date.secondSelectedDate,
+    ...mapState('date', {
+      firstDateLegends: 'firstDateLegends',
+      secondDateLegends: 'secondDateLegends',
+      firstSelectedDate: state => state.firstSelectedDate,
+      secondSelectedDate: state => state.secondSelectedDate,
 
       firstDateServer(state) {
-        return this.dateByServer(state.date.firstDate);
+        return this.dateByServer(state.firstDate);
       },
 
       secondDateServer(state) {
-        return this.dateByServer(state.date.secondDate);
+        return this.dateByServer(state.secondDate);
       },
     }),
 

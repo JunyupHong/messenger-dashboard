@@ -12,40 +12,40 @@ export default {
   components: { DateOverview },
 
   computed: {
-    ...mapState({
+    ...mapState('date', {
       selectedDate(state) {
-        return [state.date.firstSelectedDate, state.date.secondSelectedDate];
+        return [state.firstSelectedDate, state.secondSelectedDate];
       },
       totalFirstDate(state) {
-        return state.date.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
+        return state.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
       },
       maxFirstDate(state) {
         return (
-          _(state.date.firstDate)
+          _(state.firstDate)
             .groupBy(date => date.conn_hours)
             .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
             .max() || 0
         );
       },
       totalSecondDate(state) {
-        return state.date.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
+        return state.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
       },
       maxSecondDate(state) {
         return (
-          _(state.date.secondDate)
+          _(state.secondDate)
             .groupBy(date => date.conn_hours)
             .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
             .max() || 0
         );
       },
       firstDateServers(state) {
-        return _(state.date.firstDate)
+        return _(state.firstDate)
           .groupBy(date => date.serverinfo_uid)
           .values()
           .value();
       },
       secondDateServers(state) {
-        return _(state.date.secondDate)
+        return _(state.secondDate)
           .groupBy(date => date.serverinfo_uid)
           .values()
           .value();

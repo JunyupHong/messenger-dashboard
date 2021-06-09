@@ -10,6 +10,7 @@
 
 <script>
 import DateLegendLineGraph from '@/components/presentationals/date/DateLegendLineGraph';
+import { mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -47,11 +48,14 @@ export default {
   },
 
   methods: {
+    ...mapMutations('date', ['toggleFirstDateLegend', 'toggleSecondDateLegend']),
+
     toggleLegend(legend) {
+      console.log(this.toggleFirstDateLegend);
       if (this.type === 'first') {
-        this.$store.commit({ type: 'toggleFirstDateLegend', legend });
+        this.toggleFirstDateLegend({ legend });
       } else {
-        this.$store.commit({ type: 'toggleSecondDateLegend', legend });
+        this.toggleSecondDateLegend({ legend });
       }
     },
   },

@@ -2,6 +2,7 @@ import { fetchPeriod } from '@/api';
 import { dateToString } from '@/utils/date.js';
 
 const period = {
+  namespaced: true,
   state: () => ({
     selectedPeriod: [
       new Date(new Date().setFullYear(2020, new Date().getMonth(), new Date().getDate() - 3)),

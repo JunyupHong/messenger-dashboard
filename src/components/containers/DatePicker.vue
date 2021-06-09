@@ -25,9 +25,9 @@ export default {
         return this.type === 'period' ? state.selectedPeriod : this.selectedDate;
       },
     }),
-    ...mapState({
+    ...mapState('date', {
       selectedDate(state) {
-        return [state.date.firstSelectedDate, state.date.secondSelectedDate];
+        return [state.firstSelectedDate, state.secondSelectedDate];
       },
     }),
   },

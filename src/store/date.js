@@ -33,21 +33,26 @@ const date = {
     changeFirstDate(state, payload) {
       state.firstSelectedDate = payload;
     },
+
     changeSecondDate(state, payload) {
       state.secondSelectedDate = payload;
     },
+
     changeFirstData(state, payload) {
       state.firstDate = payload.data;
     },
+
     changeSecondData(state, payload) {
       state.secondDate = payload.data;
     },
+
     toggleFirstDateLegend(state, payload) {
       const newLegend = cloneDeep(state.firstDateLegends);
       const idx = state.firstDateLegends.findIndex(legend => legend.name === payload.legend.name);
       newLegend.splice(idx, 1, { ...payload.legend, active: !state.firstDateLegends[idx].active });
       state.firstDateLegends = newLegend;
     },
+
     toggleSecondDateLegend(state, payload) {
       const newLegend = cloneDeep(state.secondDateLegends);
       const idx = state.secondDateLegends.findIndex(legend => legend.name === payload.legend.name);
@@ -55,6 +60,7 @@ const date = {
       state.secondDateLegends = newLegend;
     },
   },
+
   actions: {
     async fetchFirstDate({ state, commit }) {
       const result = await fetchDate(dateToString(state.firstSelectedDate));

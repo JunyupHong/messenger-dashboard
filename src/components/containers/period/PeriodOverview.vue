@@ -5,34 +5,47 @@
 <script>
 import PeriodOverview from '@/components/presentationals/period/PeriodOverview.vue';
 import { dateToString, getWeekNumber } from '@/utils/date.js';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     PeriodOverview,
   },
+
   computed: {
+    ...mapGetters('period', [
+      'totalDay',
+      'totalPrevDay',
+      'totalWeek',
+      'totalPrevWeek',
+      'totalMonth',
+      'totalPrevMonth',
+      'totalCustom',
+      'totalPrevCustom',
+    ]),
+
     contentData() {
       return {
         day: {
-          value: this.$store.getters.totalDay,
+          value: this.totalDay,
           desc: dateToString(new Date(new Date().setFullYear(2020)), 'YYYY.MM.DD'),
-          prevValue: this.$store.getters.totalPrevDay,
+          prevValue: this.totalPrevDay,
         },
         week: {
-          value: this.$store.getters.totalWeek,
+          value: this.totalWeek,
           desc: `${dateToString(new Date(new Date().setFullYear(2020)), 'YYYY.MM')}
                  ${getWeekNumber(new Date(new Date().setFullYear(2020)))}주차`,
-          prevValue: this.$store.getters.totalPrevWeek,
+          prevValue: this.totalPrevWeek,
         },
         month: {
-          value: this.$store.getters.totalMonth,
+          value: this.totalMonth,
           desc: dateToString(new Date(new Date().setFullYear(2020)), 'YYYY.MM'),
-          prevValue: this.$store.getters.totalPrevMonth,
+          prevValue: this.totalPrevMonth,
         },
         custom: {
-          value: this.$store.getters.totalCustom,
+          value: this.totalCustom,
           desc: '설정 기간',
-          prevValue: this.$store.getters.totalPrevCustom,
+          prevValue: this.totalPrevCustom,
         },
       };
     },
