@@ -1,3 +1,4 @@
+const MONDAY = 1;
 const doubleDigits = number => (Math.floor(number / 10) === 0 ? '0' + number : number);
 
 export const dateToString = (date, format = 'YYYY-MM-DD') => {
@@ -15,12 +16,12 @@ export const dateToString = (date, format = 'YYYY-MM-DD') => {
 
 export const getWeekNumber = date => {
   const compare = new Date(new Date(date).setDate(1));
-  while (compare.getDay() !== 1) {
+  while (compare.getDay() !== MONDAY) {
     compare.setDate(compare.getDate() + 1);
   }
   if (compare > date) {
     compare.setMonth(compare.getMonth() - 1);
-    while (compare.getDay() !== 1) {
+    while (compare.getDay() !== MONDAY) {
       compare.setDate(compare.getDate() + 1);
     }
   }
