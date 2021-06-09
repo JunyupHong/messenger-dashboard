@@ -51,7 +51,6 @@ export default {
     ...mapMutations('date', ['toggleFirstDateLegend', 'toggleSecondDateLegend']),
 
     toggleLegend(legend) {
-      console.log(this.toggleFirstDateLegend);
       if (this.type === 'first') {
         this.toggleFirstDateLegend({ legend });
       } else {

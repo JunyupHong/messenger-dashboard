@@ -5,14 +5,24 @@
 <script>
 import PeriodLineGraph from '@/components/presentationals/period/PeriodLineGraph.vue';
 import { dateToString } from '@/utils/date.js';
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: { PeriodLineGraph },
 
   computed: {
-    ...mapState('period', ['userCounts']),
-    ...mapGetters('period', ['customPeriods']),
+    ...mapState('period', {
+      userCounts: 'userCounts',
+      customPeriods: state => {
+        const periods = [];
+        let start = new Date(state.selectedPeriod[0]);
+        while (start <= state.selectedPeriod[1]) {
+          periods.push(dateToString(start));
+          start.setDate(start.getDate() + 1);
+        }
+        return periods;
+      },
+    }),
 
     labels() {
       return this.customPeriods.map(period => dateToString(new Date(period), 'MM.DD'));
