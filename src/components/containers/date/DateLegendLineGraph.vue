@@ -21,7 +21,9 @@ export default {
     },
     type: String,
   },
+
   components: { DateLegendLineGraph },
+
   data() {
     return {
       chartData: {
@@ -75,16 +77,26 @@ export default {
   },
   computed: {
     chart() {
+      console.log(this.servers);
+      if (this.servers.length === 0) return { labels: [], datesets: [] };
       return {
-        ...this.chartData,
-        datasets: this.chartData.datasets
+        labels: Array.from({ length: 24 }).map((_, i) => i),
+        datasets: this.servers
           .map((dataset, i) => ({
             ...dataset,
             borderColor: this.legends[i].color,
             backgroundColor: this.legends[i].color,
+            fill: false,
+            tension: 0.1,
           }))
           .filter((_, i) => this.legends[i].active),
       };
+    },
+    servers() {
+      return this.$store.getters.firstDateServers.map(server => ({
+        label: server[0].server_ip,
+        data: server.map(time => time.max_user),
+      }));
     },
   },
   methods: {

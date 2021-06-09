@@ -18,13 +18,25 @@ const date = {
       return state.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
     },
     maxFirstDate(state) {
-      return Math.max(...state.firstDate.map(first => first.max_user));
+      return (
+        _(state.firstDate)
+          .groupBy(date => date.conn_hours)
+          .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
+          .max()
+          .value() || 0
+      );
     },
     totalSecondDate(state) {
       return state.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
     },
     maxSecondDate(state) {
-      return Math.max(...state.secondDate.map(second => second.max_user));
+      return (
+        _(state.secondDate)
+          .groupBy(date => date.conn_hours)
+          .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
+          .max()
+          .value() || 0
+      );
     },
     firstDateServers(state) {
       return _(state.firstDate)
