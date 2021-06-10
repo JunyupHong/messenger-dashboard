@@ -70,8 +70,7 @@ export default {
         return (
           typeof value.desc === 'string' &&
           typeof value.max === 'number' &&
-          typeof value.total === 'number' &&
-          typeof value.servers === 'object'
+          typeof value.total === 'number'
         );
       },
     },
@@ -82,11 +81,11 @@ export default {
   },
   computed: {
     isValidSecondDate() {
+      if (!this.secondDate) return false;
       return (
         typeof this.secondDate.desc === 'string' &&
         typeof this.secondDate.max === 'number' &&
-        typeof this.secondDate.total === 'number' &&
-        typeof this.secondDate.servers === 'object'
+        typeof this.secondDate.total === 'number'
       );
     },
   },

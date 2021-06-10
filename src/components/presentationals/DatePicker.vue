@@ -54,7 +54,7 @@ export default {
         return this.dateValue[0];
       },
       set(newFirstDate) {
-        this.$emit('changeDate', [newFirstDate, this.dateValue[1]]);
+        this.$emit('changeFirstDate', newFirstDate);
       },
     },
     secondDate: {
@@ -62,7 +62,7 @@ export default {
         return this.dateValue[1];
       },
       set(newSecondDate) {
-        this.$emit('changeDate', [this.dateValue[0], newSecondDate]);
+        this.$emit('changeSecondDate', newSecondDate);
       },
     },
   },

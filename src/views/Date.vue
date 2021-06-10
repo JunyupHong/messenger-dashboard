@@ -7,22 +7,25 @@
     <ContentsWrapper title="동시 접속자 수 변화">
       <DateLineGraph xLabel="시간" yLabel="동시 접속자 수" />
     </ContentsWrapper>
-    <ContentsWrapper title="서버 별 동시 접속자 수 변화 - 2021.05.16">
+    <ContentsWrapper :title="`서버 별 동시 접속자 수 변화 - ${selectedFirstDate}`">
       <DateLegendLineGraph
         xLabel="시간"
         yLabel="동시 접속자 수"
         :legends="firstDateLegends"
+        :servers="firstDateServer"
         type="first"
-        @toggleLegend="toggleFirstLegend"
       />
     </ContentsWrapper>
-    <ContentsWrapper title="서버 별 동시 접속자 수 변화 - 2021.05.18">
+    <ContentsWrapper
+      v-if="secondSelectedDate"
+      :title="`서버 별 동시 접속자 수 변화 - ${selectedSecondDate}`"
+    >
       <DateLegendLineGraph
         xLabel="시간"
         yLabel="동시 접속자 수"
         :legends="secondDateLegends"
+        :servers="secondDateServer"
         type="second"
-        @toggleLegend="toggleSecondLegend"
       />
     </ContentsWrapper>
   </div>
@@ -34,46 +37,43 @@ import DatePicker from '@/components/containers/DatePicker.vue';
 import DateOverview from '@/components/containers/date/DateOverview.vue';
 import DateLineGraph from '@/components/containers/date/DateLineGraph.vue';
 import DateLegendLineGraph from '@/components/containers/date/DateLegendLineGraph.vue';
+import { dateToString } from '@/utils/date.js';
+import flow from 'lodash/flow';
+import groupBy from 'lodash/groupBy';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Date',
   components: { ContentsWrapper, DatePicker, DateOverview, DateLineGraph, DateLegendLineGraph },
-  data() {
-    return {
-      firstDateLegends: [
-        { color: '#00519E', name: '사내 (54)', active: true },
-        { color: '#2E447F', name: '일반 (93)', active: false },
-        { color: '#1D7ABD', name: '단독 (242)', active: true },
-        { color: '#89C6E1', name: '전용 (198)', active: false },
-        { color: '#90BEDE', name: '전옹 (88)', active: true },
-        { color: '#000000', name: '전용 (97)', active: false },
-        { color: '#cccccc', name: 'KBS (182)', active: false },
-      ],
-      secondDateLegends: [
-        { color: '#E75113', name: '사내 (54)', active: true },
-        { color: '#F9B200', name: '일반 (93)', active: false },
-        { color: '#E7823F', name: '단독 (242)', active: true },
-        { color: '#CF4F2E', name: '전용 (198)', active: false },
-        { color: '#EA7D24', name: '전옹 (88)', active: false },
-        { color: '#000000', name: '전용 (97)', active: false },
-        { color: '#cccccc', name: 'KBS (182)', active: true },
-      ],
-    };
-  },
+
   methods: {
-    toggleFirstLegend(legend) {
-      const index = this.firstDateLegends.findIndex(
-        firstLegend => firstLegend.name === legend.name
-      );
-      if (index === -1) return;
-      this.firstDateLegends[index].active = !this.firstDateLegends[index].active;
+    dateByServer(dateData) {
+      return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
     },
-    toggleSecondLegend(legend) {
-      const index = this.secondDateLegends.findIndex(
-        secondLegend => secondLegend.name === legend.name
-      );
-      if (index === -1) return;
-      this.secondDateLegends[index].active = !this.secondDateLegends[index].active;
+  },
+
+  computed: {
+    ...mapState('date', {
+      firstDateLegends: 'firstDateLegends',
+      secondDateLegends: 'secondDateLegends',
+      firstSelectedDate: state => state.firstSelectedDate,
+      secondSelectedDate: state => state.secondSelectedDate,
+
+      firstDateServer(state) {
+        return this.dateByServer(state.firstDate);
+      },
+
+      secondDateServer(state) {
+        return this.dateByServer(state.secondDate);
+      },
+    }),
+
+    selectedFirstDate() {
+      return dateToString(this.firstSelectedDate, 'YYYY.MM.DD');
+    },
+
+    selectedSecondDate() {
+      return dateToString(this.secondSelectedDate, 'YYYY.MM.DD');
     },
   },
 };

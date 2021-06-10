@@ -4,24 +4,49 @@
 
 <script>
 import PeriodLineGraph from '@/components/presentationals/period/PeriodLineGraph.vue';
+import { dateToString } from '@/utils/date.js';
+import { mapState } from 'vuex';
 
 export default {
   components: { PeriodLineGraph },
-  data() {
-    return {
-      chartData: {
-        labels: [1, 2, 3, 4, 5, 6, 7],
+
+  computed: {
+    ...mapState('period', {
+      userCounts: 'userCounts',
+      customPeriods: state => {
+        const periods = [];
+        let start = new Date(state.selectedPeriod[0]);
+        while (start <= state.selectedPeriod[1]) {
+          periods.push(dateToString(start));
+          start.setDate(start.getDate() + 1);
+        }
+        return periods;
+      },
+    }),
+
+    labels() {
+      return this.customPeriods.map(period => dateToString(new Date(period), 'MM.DD'));
+    },
+
+    userCountData() {
+      return this.customPeriods.map(period => this.userCounts.get(period));
+    },
+
+    chartData() {
+      return {
+        labels: this.labels,
         datasets: [
           {
             label: '동시 접속자 수',
-            data: Array.from({ length: 7 }).map(() => Math.round(Math.random() * 100)),
+            data: this.userCountData,
             fill: false,
             borderColor: '#2E447F',
+            backgroundColor: '#2E447F',
             tension: 0.1,
           },
         ],
-      },
-    };
+      };
+    },
   },
 };
 </script>

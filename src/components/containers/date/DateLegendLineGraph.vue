@@ -10,6 +10,7 @@
 
 <script>
 import DateLegendLineGraph from '@/components/presentationals/date/DateLegendLineGraph';
+import { mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -19,77 +20,42 @@ export default {
       type: Array,
       required: true,
     },
+    servers: {
+      type: Array,
+      required: true,
+    },
     type: String,
   },
+
   components: { DateLegendLineGraph },
-  data() {
-    return {
-      chartData: {
-        labels: Array.from({ length: 24 }).map((_, i) => i),
-        datasets: [
-          {
-            label: '사내 (54)',
-            fill: false,
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            tension: 0.1,
-          },
-          {
-            label: '일반 (93)',
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            fill: false,
-            tension: 0.1,
-          },
-          {
-            label: '단독 (242)',
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            fill: false,
-            tension: 0.1,
-          },
-          {
-            label: '전용 (198)',
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            fill: false,
-            tension: 0.1,
-          },
-          {
-            label: '전옹 (88)',
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            fill: false,
-            tension: 0.1,
-          },
-          {
-            label: '전용 (97)',
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            fill: false,
-            tension: 0.1,
-          },
-          {
-            label: 'KBS (182)',
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            fill: false,
-            tension: 0.1,
-          },
-        ],
-      },
-    };
-  },
+
   computed: {
     chart() {
       return {
-        ...this.chartData,
-        datasets: this.chartData.datasets
-          .map((dataset, i) => ({
-            ...dataset,
+        labels: Array.from({ length: 24 }).map((_, i) => i),
+        datasets: this.servers
+          .map((server, i) => ({
+            label: server[0].server_ip,
+            data: server.map(time => time.max_user),
             borderColor: this.legends[i].color,
             backgroundColor: this.legends[i].color,
+            fill: false,
+            tension: 0.1,
           }))
           .filter((_, i) => this.legends[i].active),
       };
     },
   },
+
   methods: {
+    ...mapMutations('date', ['toggleFirstDateLegend', 'toggleSecondDateLegend']),
+
     toggleLegend(legend) {
-      this.$emit('toggleLegend', legend);
+      if (this.type === 'first') {
+        this.toggleFirstDateLegend({ legend });
+      } else {
+        this.toggleSecondDateLegend({ legend });
+      }
     },
   },
 };

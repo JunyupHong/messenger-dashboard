@@ -1,6 +1,6 @@
 <template>
   <LineGraph :xLabel="xLabel" :yLabel="yLabel">
-    <LineGraphChartjs v-if="false" class="linegraph__full" :chartData="chartData" />
+    <LineGraphChartjs v-if="true" class="linegraph__full" :chartData="chartData" />
     <LineGraphD3js v-else />
   </LineGraph>
 </template>

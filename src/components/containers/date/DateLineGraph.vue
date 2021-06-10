@@ -4,35 +4,67 @@
 
 <script>
 import DateLineGraph from '@/components/presentationals/date/DateLineGraph.vue';
+import { dateToString } from '@/utils/date.js';
+import { mapState } from 'vuex';
+import flow from 'lodash/flow';
+import groupBy from 'lodash/groupBy';
 
 export default {
   props: {
     xLabel: String,
     yLabel: String,
   },
+
   components: { DateLineGraph },
-  data() {
-    return {
-      chartData: {
-        labels: Array.from({ length: 24 }).map((_, i) => i),
-        datasets: [
-          {
-            label: '2021.05.16',
-            backgroundColor: '#2E447F',
-            fill: false,
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            tension: 0.1,
-          },
-          {
-            label: '2021.05.18',
-            data: Array.from({ length: 24 }).map(() => Math.round(Math.random() * 100)),
-            backgroundColor: '#CF4F2E',
-            fill: false,
-            tension: 0.1,
-          },
-        ],
+
+  methods: {
+    dateByTimes(dateData) {
+      return flow(date => groupBy(date, hour => hour.conn_hours), Object.values)(dateData);
+    },
+  },
+
+  computed: {
+    ...mapState('date', {
+      selectedDate: state => [state.firstSelectedDate, state.secondSelectedDate],
+
+      firstDateByTimes(state) {
+        return this.dateByTimes(state.firstDate);
       },
-    };
+      secondDateByTimes(state) {
+        return this.dateByTimes(state.secondDate);
+      },
+    }),
+
+    chartData() {
+      const datasets = [
+        {
+          label: dateToString(this.selectedDate[0], 'YYYY.MM.DD'),
+          borderColor: '#2E447F',
+          backgroundColor: '#2E447F',
+          fill: false,
+          data: this.firstDateByTimes.map(time => time.reduce((acc, cur) => acc + cur.max_user, 0)),
+          tension: 0.1,
+        },
+      ];
+
+      if (this.selectedDate[1]) {
+        datasets.push({
+          label: dateToString(this.selectedDate[1], 'YYYY.MM.DD'),
+          data: this.secondDateByTimes.map(time =>
+            time.reduce((acc, cur) => acc + cur.max_user, 0)
+          ),
+          borderColor: '#CF4F2E',
+          backgroundColor: '#CF4F2E',
+          fill: false,
+          tension: 0.1,
+        });
+      }
+
+      return {
+        labels: Array.from({ length: 24 }).map((_, i) => i),
+        datasets,
+      };
+    },
   },
 };
 </script>

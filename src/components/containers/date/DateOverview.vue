@@ -4,49 +4,103 @@
 
 <script>
 import DateOverview from '@/components/presentationals/date/DateOverview.vue';
+import { dateToString } from '@/utils/date.js';
+import { mapState } from 'vuex';
+import flow from 'lodash/flow';
+import groupBy from 'lodash/groupBy';
 
 export default {
   components: { DateOverview },
-  data() {
-    return {
-      firstDate: {
-        desc: '2021.05.16',
-        max: 63488,
-        total: 123456,
-        servers: [{ name: '사내 (54)', value: 6431 }],
+
+  computed: {
+    ...mapState('date', {
+      selectedDate(state) {
+        return [state.firstSelectedDate, state.secondSelectedDate];
       },
-      secondDate: {
-        desc: '2021.05.18',
-        max: 11111,
-        total: 654321,
-        servers: [{ name: '사내 (54)', value: 6431 }],
+      totalFirstDate(state) {
+        return state.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
       },
-      barGraph: {
-        labels: [
-          '사내 (54)',
-          '일반 (93)',
-          '단독 (242)',
-          '전용 (198)',
-          '전옹 (88)',
-          '전용 (97)',
-          'KBS (182)',
-        ],
-        datasets: [
-          {
-            label: '2021.05.16',
-            backgroundColor: '#2E447F',
-            data: Array.from({ length: 7 }).map(() => Math.round(Math.random() * 100)),
-            barThickness: 16,
-          },
-          {
-            label: '2021.05.18',
-            data: Array.from({ length: 7 }).map(() => Math.round(Math.random() * 100)),
-            backgroundColor: '#CF4F2E',
-            barThickness: 16,
-          },
-        ],
+      maxFirstDate(state) {
+        return this.getMaxUserByTime(state.firstDate);
       },
-    };
+      totalSecondDate(state) {
+        return state.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
+      },
+      maxSecondDate(state) {
+        return this.getMaxUserByTime(state.secondDate);
+      },
+      firstDateServers(state) {
+        return this.getDateByServer(state.firstDate);
+      },
+      secondDateServers(state) {
+        return this.getDateByServer(state.secondDate);
+      },
+    }),
+
+    firstDate() {
+      return {
+        desc: dateToString(this.selectedDate[0], 'YYYY.MM.DD'),
+        max: this.maxFirstDate,
+        total: this.totalFirstDate,
+      };
+    },
+
+    secondDate() {
+      if (!this.selectedDate[1]) return null;
+
+      return {
+        desc: dateToString(this.selectedDate[1], 'YYYY.MM.DD'),
+        max: this.maxSecondDate,
+        total: this.totalSecondDate,
+      };
+    },
+
+    barGraph() {
+      const datasets = [
+        {
+          label: dateToString(this.selectedDate[0], 'YYYY.MM.DD'),
+          backgroundColor: '#2E447F',
+          data: this.firstDateServers.map(server =>
+            server.reduce((acc, cur) => acc + cur.max_user, 0)
+          ),
+          barThickness: 16,
+        },
+      ];
+
+      if (this.selectedDate[1]) {
+        datasets.push({
+          label: dateToString(this.selectedDate[1], 'YYYY.MM.DD'),
+          data:
+            this.secondDateServers.length > 0
+              ? this.secondDateServers.map(server =>
+                  server.reduce((acc, cur) => acc + cur.max_user, 0)
+                )
+              : Array.from({ length: 6 }).map(() => 0),
+          backgroundColor: '#CF4F2E',
+          barThickness: 16,
+        });
+      }
+
+      return {
+        labels: this.firstDateServers.map(server => server[0].server_ip),
+        datasets,
+      };
+    },
+  },
+
+  methods: {
+    getMaxUserByTime(dateData) {
+      return flow(
+        date => groupBy(date, hour => hour.conn_hours),
+        Object.values,
+        date => date.map(hour => hour.reduce((acc, cur) => acc + cur.max_user, 0)),
+        counts => (counts.length > 0 ? Math.max(...counts) : 0)
+      )(dateData);
+    },
+
+    getDateByServer(dateData) {
+      return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
+    },
   },
 };
 </script>
