@@ -6,7 +6,8 @@
 import DateOverview from '@/components/presentationals/date/DateOverview.vue';
 import { dateToString } from '@/utils/date.js';
 import { mapState } from 'vuex';
-import * as _ from 'lodash';
+import flow from 'lodash/flow';
+import groupBy from 'lodash/groupBy';
 
 export default {
   components: { DateOverview },
@@ -20,35 +21,19 @@ export default {
         return state.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
       },
       maxFirstDate(state) {
-        return (
-          _(state.firstDate)
-            .groupBy(date => date.conn_hours)
-            .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
-            .max() || 0
-        );
+        return this.getMaxByTime(state.firstDate);
       },
       totalSecondDate(state) {
         return state.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
       },
       maxSecondDate(state) {
-        return (
-          _(state.secondDate)
-            .groupBy(date => date.conn_hours)
-            .map(date => date.reduce((acc, cur) => acc + cur.max_user, 0))
-            .max() || 0
-        );
+        return this.getMaxByTime(state.secondDate);
       },
       firstDateServers(state) {
-        return _(state.firstDate)
-          .groupBy(date => date.serverinfo_uid)
-          .values()
-          .value();
+        return this.getDateByServer(state.firstDate);
       },
       secondDateServers(state) {
-        return _(state.secondDate)
-          .groupBy(date => date.serverinfo_uid)
-          .values()
-          .value();
+        return this.getDateByServer(state.secondDate);
       },
     }),
 
@@ -100,6 +85,20 @@ export default {
         labels: this.firstDateServers.map(server => server[0].server_ip),
         datasets,
       };
+    },
+  },
+
+  methods: {
+    getMaxByTime(dateData) {
+      return flow(
+        date => groupBy(date, hour => hour.conn_hours),
+        Object.values,
+        date => date.map(hour => hour.reduce((acc, cur) => acc + cur.max_user, 0)),
+        counts => (counts.length > 0 ? Math.max(...counts) : 0)
+      )(dateData);
+    },
+    getDateByServer(dateData) {
+      return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
     },
   },
 };

@@ -78,7 +78,6 @@ export default {
         const dateLength = this.getPeriods(...state.selectedPeriod).length;
         return this.getPeriods(
           ...state.selectedPeriod.map(period => {
-            console.log(new Date(period).setDate(period.getDate() - dateLength));
             return new Date(period).setDate(period.getDate() - dateLength);
           })
         ).reduce((acc, cur) => acc + (state.userCounts.get(cur) || 0), 0);
