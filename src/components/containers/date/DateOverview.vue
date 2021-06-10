@@ -21,13 +21,13 @@ export default {
         return state.firstDate.reduce((acc, cur) => acc + cur.max_user, 0);
       },
       maxFirstDate(state) {
-        return this.getMaxByTime(state.firstDate);
+        return this.getMaxUserByTime(state.firstDate);
       },
       totalSecondDate(state) {
         return state.secondDate.reduce((acc, cur) => acc + cur.max_user, 0);
       },
       maxSecondDate(state) {
-        return this.getMaxByTime(state.secondDate);
+        return this.getMaxUserByTime(state.secondDate);
       },
       firstDateServers(state) {
         return this.getDateByServer(state.firstDate);
@@ -89,7 +89,7 @@ export default {
   },
 
   methods: {
-    getMaxByTime(dateData) {
+    getMaxUserByTime(dateData) {
       return flow(
         date => groupBy(date, hour => hour.conn_hours),
         Object.values,
@@ -97,6 +97,7 @@ export default {
         counts => (counts.length > 0 ? Math.max(...counts) : 0)
       )(dateData);
     },
+
     getDateByServer(dateData) {
       return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
     },
