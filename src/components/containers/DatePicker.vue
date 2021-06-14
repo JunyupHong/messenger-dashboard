@@ -37,17 +37,32 @@ export default {
     ...mapActions('period', ['fetchPeriod']),
     ...mapMutations('date', ['changeFirstDate', 'changeSecondDate']),
     ...mapActions('date', ['fetchFirstDate', 'fetchSecondDate']),
-    async onChangePeriod(newPeriod) {
-      this.changePeriod(newPeriod);
-      await this.fetchPeriod();
+    async onChangePeriod({ newPeriod, prevPeriod }) {
+      try {
+        this.changePeriod(newPeriod);
+        await this.fetchPeriod();
+      } catch (e) {
+        alert('해당 기간 데이터를 가져올 수 없습니다.');
+        this.changePeriod(prevPeriod);
+      }
     },
-    async onChangeFirstDate(newDate) {
-      this.changeFirstDate(newDate);
-      await this.fetchFirstDate();
+    async onChangeFirstDate({ newFirstDate, prevFirstDate }) {
+      try {
+        this.changeFirstDate(newFirstDate);
+        await this.fetchFirstDate();
+      } catch (e) {
+        alert('해당 날짜 데이터를 가져올 수 없습니다.');
+        this.changeFirstDate(prevFirstDate);
+      }
     },
-    async onChangeSecondDate(newDate) {
-      this.changeSecondDate(newDate);
-      await this.fetchSecondDate();
+    async onChangeSecondDate({ newSecondDate, prevSecondDate }) {
+      try {
+        this.changeSecondDate(newSecondDate);
+        await this.fetchSecondDate();
+      } catch (e) {
+        alert('해당 날짜 데이터를 가져올 수 없습니다.');
+        this.changeSecondDate(prevSecondDate);
+      }
     },
   },
   async mounted() {
