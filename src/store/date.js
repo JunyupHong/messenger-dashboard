@@ -71,7 +71,6 @@ const date = {
     },
     async fetchSecondDate({ state, commit }) {
       const result = await fetchDate(dateToString(state.secondSelectedDate));
-      console.log(result);
       commit({
         type: 'changeSecondData',
         data: result,
