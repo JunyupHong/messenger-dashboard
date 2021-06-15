@@ -11,6 +11,7 @@
 <script>
 import DateLegendLineGraph from '@/components/presentationals/date/DateLegendLineGraph';
 import { mapMutations } from 'vuex';
+import { interpolateHSL } from '@/utils/color.js';
 
 export default {
   props: {
@@ -37,8 +38,8 @@ export default {
           .map((server, i) => ({
             label: server[0].server_ip,
             data: server.map(time => time.max_user),
-            borderColor: this.legends[i].color,
-            backgroundColor: this.legends[i].color,
+            borderColor: this.legends[i].color || 'none',
+            backgroundColor: this.legends[i].color || 'none',
             fill: false,
             tension: 0.1,
           }))
@@ -47,8 +48,25 @@ export default {
     },
   },
 
+  watch: {
+    servers: function (server) {
+      if (server.length === 0) return;
+
+      if (this.type === 'first') {
+        this.changeFirstDateLegends(this.getLegends());
+      } else {
+        this.changeSecondDateLegends(this.getLegends());
+      }
+    },
+  },
+
   methods: {
-    ...mapMutations('date', ['toggleFirstDateLegend', 'toggleSecondDateLegend']),
+    ...mapMutations('date', [
+      'changeFirstDateLegends',
+      'changeSecondDateLegends',
+      'toggleFirstDateLegend',
+      'toggleSecondDateLegend',
+    ]),
 
     toggleLegend(legend) {
       if (this.type === 'first') {
@@ -56,6 +74,23 @@ export default {
       } else {
         this.toggleSecondDateLegend({ legend });
       }
+    },
+
+    getLegends() {
+      if (this.servers.length === 0) return [];
+
+      const colors =
+        this.type === 'first'
+          ? interpolateHSL(160, 290, this.servers.length, 100, 38).reverse()
+          : interpolateHSL(0, 70, this.servers.length, 100, 45);
+
+      const result = this.servers.map((server, i) => ({
+        name: server[0].server_ip,
+        color: `hsl(${colors[i].h}, ${colors[i].s}%, ${colors[i].l}%)`,
+        active: true,
+      }));
+
+      return result;
     },
   },
 };

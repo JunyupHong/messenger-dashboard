@@ -9,7 +9,10 @@
       >
         <span
           class="legend__color"
-          :style="{ background: legend.active ? legend.color : 'none', borderColor: legend.color }"
+          :style="{
+            background: legend.active ? legend.color : 'none',
+            borderColor: legend.color,
+          }"
         ></span>
         <span> {{ legend.name }}</span>
       </div>
