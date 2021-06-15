@@ -51,8 +51,8 @@ export default {
     ...mapState('date', {
       firstDateLegends: 'firstDateLegends',
       secondDateLegends: 'secondDateLegends',
-      firstSelectedDate: state => state.firstSelectedDate,
-      secondSelectedDate: state => state.secondSelectedDate,
+      firstSelectedDate: 'firstSelectedDate',
+      secondSelectedDate: 'secondSelectedDate',
 
       firstDateServer(state) {
         return this.dateByServer(state.firstDate);

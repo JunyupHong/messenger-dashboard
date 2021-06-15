@@ -49,13 +49,20 @@ export default {
   },
 
   watch: {
-    servers: function (server) {
+    servers: function (server, prevServers) {
       if (server.length === 0) return;
+      if (
+        this.isSameArray(
+          server.map(s => s[0].server_ip),
+          prevServers.map(s => s[0].server_ip)
+        )
+      )
+        return;
 
       if (this.type === 'first') {
-        this.changeFirstDateLegends(this.getLegends());
+        this.changeFirstDateLegends(this.getInitLegends());
       } else {
-        this.changeSecondDateLegends(this.getLegends());
+        this.changeSecondDateLegends(this.getInitLegends());
       }
     },
   },
@@ -68,6 +75,16 @@ export default {
       'toggleSecondDateLegend',
     ]),
 
+    isSameArray(start, end) {
+      if (start.length !== end.length) return false;
+
+      for (let i = 0; i < start.length; i++) {
+        if (start[i] !== end[i]) return false;
+      }
+
+      return true;
+    },
+
     toggleLegend(legend) {
       if (this.type === 'first') {
         this.toggleFirstDateLegend({ legend });
@@ -76,7 +93,7 @@ export default {
       }
     },
 
-    getLegends() {
+    getInitLegends() {
       if (this.servers.length === 0) return [];
 
       const colors =
@@ -84,13 +101,10 @@ export default {
           ? interpolateHSL(160, 290, this.servers.length, 100, 38).reverse()
           : interpolateHSL(0, 70, this.servers.length, 100, 45);
 
-      const result = this.servers.map((server, i) => ({
+      return this.servers.map((server, i) => ({
         name: server[0].server_ip,
         color: `hsl(${colors[i].h}, ${colors[i].s}%, ${colors[i].l}%)`,
-        active: true,
       }));
-
-      return result;
     },
   },
 };

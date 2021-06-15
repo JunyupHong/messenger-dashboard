@@ -31,11 +31,17 @@ const date = {
     },
 
     changeFirstDateLegends(state, payload) {
-      state.firstDateLegends = payload;
+      state.firstDateLegends = payload.map((legend, i) => ({
+        ...legend,
+        active: state.firstDateLegends[i] ? state.firstDateLegends[i].active : true,
+      }));
     },
 
     changeSecondDateLegends(state, payload) {
-      state.secondDateLegends = payload;
+      state.secondDateLegends = payload.map((legend, i) => ({
+        ...legend,
+        active: state.secondDateLegends[i] ? state.secondDateLegends[i].active : true,
+      }));
     },
 
     toggleFirstDateLegend(state, payload) {
