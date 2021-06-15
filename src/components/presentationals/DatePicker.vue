@@ -46,7 +46,7 @@ export default {
         return this.dateValue;
       },
       set(newPeriod) {
-        this.$emit('changePeriod', newPeriod);
+        this.$emit('changePeriod', { newPeriod, prevPeriod: this.dateValue });
       },
     },
     firstDate: {
@@ -54,7 +54,7 @@ export default {
         return this.dateValue[0];
       },
       set(newFirstDate) {
-        this.$emit('changeFirstDate', newFirstDate);
+        this.$emit('changeFirstDate', { newFirstDate, prevFirstDate: this.dateValue[0] });
       },
     },
     secondDate: {
@@ -62,7 +62,7 @@ export default {
         return this.dateValue[1];
       },
       set(newSecondDate) {
-        this.$emit('changeSecondDate', newSecondDate);
+        this.$emit('changeSecondDate', { newSecondDate, prevSecondDate: this.dateValue[1] });
       },
     },
   },
