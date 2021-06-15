@@ -96,8 +96,10 @@ export default {
     },
   },
   async mounted() {
+    this.$loading.on();
     if (this.type === 'period') await this.fetchPeriod();
     else if (this.type === 'date') await this.fetchFirstDate();
+    this.$loading.off();
   },
 };
 </script>
