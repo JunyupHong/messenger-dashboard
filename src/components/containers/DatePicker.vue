@@ -38,40 +38,61 @@ export default {
     ...mapMutations('date', ['changeFirstDate', 'changeSecondDate']),
     ...mapActions('date', ['fetchFirstDate', 'fetchSecondDate']),
     async onChangePeriod({ newPeriod, prevPeriod }) {
-      try {
-        this.$loading.on();
-        this.changePeriod(newPeriod);
-        await this.fetchPeriod();
-      } catch (e) {
-        alert('해당 기간 데이터를 가져올 수 없습니다.');
-        this.changePeriod(prevPeriod);
-      } finally {
-        setTimeout(this.$loading.off, 1000);
-      }
+      const fetchPeriod = async () => {
+        try {
+          this.$loading.on();
+          this.changePeriod(newPeriod);
+          await this.fetchPeriod();
+          return Promise.resolve();
+        } catch (e) {
+          alert('해당 기간 데이터를 가져올 수 없습니다.');
+          this.changePeriod(prevPeriod);
+          return Promise.reject();
+        }
+      };
+      await Promise.allSettled([
+        fetchPeriod(),
+        new Promise(resolve => setTimeout(() => resolve(), 500)),
+      ]);
+      this.$loading.off();
     },
+
     async onChangeFirstDate({ newFirstDate, prevFirstDate }) {
-      try {
-        this.$loading.on();
-        this.changeFirstDate(newFirstDate);
-        await this.fetchFirstDate();
-      } catch (e) {
-        alert('해당 날짜 데이터를 가져올 수 없습니다.');
-        this.changeFirstDate(prevFirstDate);
-      } finally {
-        setTimeout(this.$loading.off, 1000);
-      }
+      const fetchDate = async () => {
+        try {
+          this.$loading.on();
+          this.changeFirstDate(newFirstDate);
+          await this.fetchFirstDate();
+        } catch (e) {
+          alert('해당 날짜 데이터를 가져올 수 없습니다.');
+          this.changeFirstDate(prevFirstDate);
+        }
+      };
+
+      await Promise.allSettled([
+        fetchDate(),
+        new Promise(resolve => setTimeout(() => resolve(), 500)),
+      ]);
+      this.$loading.off();
     },
+
     async onChangeSecondDate({ newSecondDate, prevSecondDate }) {
-      try {
-        this.$loading.on();
-        this.changeSecondDate(newSecondDate);
-        await this.fetchSecondDate();
-      } catch (e) {
-        alert('해당 날짜 데이터를 가져올 수 없습니다.');
-        this.changeSecondDate(prevSecondDate);
-      } finally {
-        setTimeout(this.$loading.off, 1000);
-      }
+      const fetchDate = async () => {
+        try {
+          this.$loading.on();
+          this.changeSecondDate(newSecondDate);
+          await this.fetchSecondDate();
+        } catch (e) {
+          alert('해당 날짜 데이터를 가져올 수 없습니다.');
+          this.changeSecondDate(prevSecondDate);
+        }
+      };
+
+      await Promise.allSettled([
+        fetchDate(),
+        new Promise(resolve => setTimeout(() => resolve(), 500)),
+      ]);
+      this.$loading.off();
     },
   },
   async mounted() {
