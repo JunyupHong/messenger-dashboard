@@ -11,6 +11,7 @@
 <script>
 import DateLegendLineGraph from '@/components/presentationals/date/DateLegendLineGraph';
 import { mapMutations } from 'vuex';
+import { interpolateHSL } from '@/utils/color.js';
 
 export default {
   props: {
@@ -37,8 +38,8 @@ export default {
           .map((server, i) => ({
             label: server[0].server_ip,
             data: server.map(time => time.max_user),
-            borderColor: this.legends[i].color,
-            backgroundColor: this.legends[i].color,
+            borderColor: this.legends[i].color || 'none',
+            backgroundColor: this.legends[i].color || 'none',
             fill: false,
             tension: 0.1,
           }))
@@ -47,8 +48,42 @@ export default {
     },
   },
 
+  watch: {
+    servers: function (server, prevServers) {
+      if (server.length === 0) return;
+      if (
+        this.isSameArray(
+          server.map(s => s[0].server_ip),
+          prevServers.map(s => s[0].server_ip)
+        )
+      )
+        return;
+
+      if (this.type === 'first') {
+        this.changeFirstDateLegends(this.getInitLegends());
+      } else {
+        this.changeSecondDateLegends(this.getInitLegends());
+      }
+    },
+  },
+
   methods: {
-    ...mapMutations('date', ['toggleFirstDateLegend', 'toggleSecondDateLegend']),
+    ...mapMutations('date', [
+      'changeFirstDateLegends',
+      'changeSecondDateLegends',
+      'toggleFirstDateLegend',
+      'toggleSecondDateLegend',
+    ]),
+
+    isSameArray(start, end) {
+      if (start.length !== end.length) return false;
+
+      for (let i = 0; i < start.length; i++) {
+        if (start[i] !== end[i]) return false;
+      }
+
+      return true;
+    },
 
     toggleLegend(legend) {
       if (this.type === 'first') {
@@ -56,6 +91,20 @@ export default {
       } else {
         this.toggleSecondDateLegend({ legend });
       }
+    },
+
+    getInitLegends() {
+      if (this.servers.length === 0) return [];
+
+      const colors =
+        this.type === 'first'
+          ? interpolateHSL(160, 290, this.servers.length, 100, 38).reverse()
+          : interpolateHSL(0, 70, this.servers.length, 100, 45);
+
+      return this.servers.map((server, i) => ({
+        name: server[0].server_ip,
+        color: `hsl(${colors[i].h}, ${colors[i].s}%, ${colors[i].l}%)`,
+      }));
     },
   },
 };

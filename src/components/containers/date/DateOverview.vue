@@ -8,6 +8,7 @@ import { dateToString } from '@/utils/date.js';
 import { mapState } from 'vuex';
 import flow from 'lodash/flow';
 import groupBy from 'lodash/groupBy';
+import union from 'lodash/union';
 
 export default {
   components: { DateOverview },
@@ -56,6 +57,14 @@ export default {
     },
 
     barGraph() {
+      let labels = this.firstDateServers.map(server => server[0].server_ip);
+      if (this.selectedDate[1]) {
+        labels = union(
+          labels,
+          this.secondDateServers.map(server => server[0].server_ip)
+        );
+      }
+
       const datasets = [
         {
           label: dateToString(this.selectedDate[0], 'YYYY.MM.DD'),
@@ -70,19 +79,21 @@ export default {
       if (this.selectedDate[1]) {
         datasets.push({
           label: dateToString(this.selectedDate[1], 'YYYY.MM.DD'),
-          data:
-            this.secondDateServers.length > 0
-              ? this.secondDateServers.map(server =>
-                  server.reduce((acc, cur) => acc + cur.max_user, 0)
-                )
-              : Array.from({ length: 6 }).map(() => 0),
+          data: labels.map(serverName => {
+            const idx = this.secondDateServers
+              .map(server => server[0].server_ip)
+              .indexOf(serverName);
+
+            if (idx === -1) return 0;
+            return this.secondDateServers[idx].reduce((acc, cur) => acc + cur.max_user, 0);
+          }),
           backgroundColor: '#CF4F2E',
           barThickness: 16,
         });
       }
 
       return {
-        labels: this.firstDateServers.map(server => server[0].server_ip),
+        labels,
         datasets,
       };
     },

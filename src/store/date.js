@@ -9,24 +9,8 @@ const date = {
     secondSelectedDate: null,
     firstDate: [],
     secondDate: [],
-    firstDateLegends: [
-      { name: '사내 (54)', color: '#00519E', active: true },
-      { name: '일반 (93)', color: '#2E447F', active: false },
-      { name: '단독 (242)', color: '#1D7ABD', active: true },
-      { name: '전용 (198)', color: '#89C6E1', active: false },
-      { name: '전옹 (88)', color: '#90BEDE', active: true },
-      { name: '전용 (97)', color: '#000000', active: false },
-      { name: 'KBS (182)', color: '#cccccc', active: false },
-    ],
-    secondDateLegends: [
-      { name: '사내 (54)', color: '#E75113', active: true },
-      { name: '일반 (93)', color: '#F9B200', active: false },
-      { name: '단독 (242)', color: '#E7823F', active: true },
-      { name: '전용 (198)', color: '#CF4F2E', active: false },
-      { name: '전옹 (88)', color: '#EA7D24', active: false },
-      { name: '전용 (97)', color: '#000000', active: false },
-      { name: 'KBS (182)', color: '#cccccc', active: true },
-    ],
+    firstDateLegends: [],
+    secondDateLegends: [],
   }),
 
   mutations: {
@@ -44,6 +28,20 @@ const date = {
 
     changeSecondData(state, payload) {
       state.secondDate = payload.data;
+    },
+
+    changeFirstDateLegends(state, payload) {
+      state.firstDateLegends = payload.map((legend, i) => ({
+        ...legend,
+        active: state.firstDateLegends[i] ? state.firstDateLegends[i].active : true,
+      }));
+    },
+
+    changeSecondDateLegends(state, payload) {
+      state.secondDateLegends = payload.map((legend, i) => ({
+        ...legend,
+        active: state.secondDateLegends[i] ? state.secondDateLegends[i].active : true,
+      }));
     },
 
     toggleFirstDateLegend(state, payload) {

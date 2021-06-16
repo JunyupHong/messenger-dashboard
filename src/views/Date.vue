@@ -37,27 +37,22 @@ import DatePicker from '@/components/containers/DatePicker.vue';
 import DateOverview from '@/components/containers/date/DateOverview.vue';
 import DateLineGraph from '@/components/containers/date/DateLineGraph.vue';
 import DateLegendLineGraph from '@/components/containers/date/DateLegendLineGraph.vue';
-import { dateToString } from '@/utils/date.js';
+import { mapState } from 'vuex';
 import flow from 'lodash/flow';
 import groupBy from 'lodash/groupBy';
-import { mapState } from 'vuex';
+
+import { dateToString } from '@/utils/date.js';
 
 export default {
   name: 'Date',
   components: { ContentsWrapper, DatePicker, DateOverview, DateLineGraph, DateLegendLineGraph },
 
-  methods: {
-    dateByServer(dateData) {
-      return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
-    },
-  },
-
   computed: {
     ...mapState('date', {
       firstDateLegends: 'firstDateLegends',
       secondDateLegends: 'secondDateLegends',
-      firstSelectedDate: state => state.firstSelectedDate,
-      secondSelectedDate: state => state.secondSelectedDate,
+      firstSelectedDate: 'firstSelectedDate',
+      secondSelectedDate: 'secondSelectedDate',
 
       firstDateServer(state) {
         return this.dateByServer(state.firstDate);
@@ -74,6 +69,12 @@ export default {
 
     selectedSecondDate() {
       return dateToString(this.secondSelectedDate, 'YYYY.MM.DD');
+    },
+  },
+
+  methods: {
+    dateByServer(dateData) {
+      return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
     },
   },
 };
