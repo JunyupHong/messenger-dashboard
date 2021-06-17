@@ -55,7 +55,6 @@ export default {
       totalPrevMonth(state) {
         const start = new Date(this.today).setMonth(this.today.getMonth() - 1, 1);
         const end = new Date(this.today).setMonth(this.today.getMonth() - 1, this.today.getDate());
-        console.log(this.getPeriods(start, end));
         return this.getPeriods(start, end).reduce(
           (acc, cur) => acc + (state.userCounts.get(cur) || 0),
           0
