@@ -49,16 +49,7 @@ export default {
   },
 
   watch: {
-    servers: function (server, prevServers) {
-      if (server.length === 0) return;
-      if (
-        this.isSameArray(
-          server.map(s => s[0].server_ip),
-          prevServers.map(s => s[0].server_ip)
-        )
-      )
-        return;
-
+    servers: function () {
       if (this.type === 'first') {
         this.changeFirstDateLegends(this.getInitLegends());
       } else {
@@ -74,16 +65,6 @@ export default {
       'toggleFirstDateLegend',
       'toggleSecondDateLegend',
     ]),
-
-    isSameArray(start, end) {
-      if (start.length !== end.length) return false;
-
-      for (let i = 0; i < start.length; i++) {
-        if (start[i] !== end[i]) return false;
-      }
-
-      return true;
-    },
 
     toggleLegend(legend) {
       if (this.type === 'first') {

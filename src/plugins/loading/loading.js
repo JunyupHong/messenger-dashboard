@@ -3,9 +3,7 @@ import Loading from './loading.vue';
 export default {
   install(Vue) {
     const LoadingConstructor = Vue.extend(Loading);
-    const loadingInstance = new LoadingConstructor({
-      el: document.createElement('div'),
-    });
+    const loadingInstance = new LoadingConstructor().$mount();
 
     Vue.prototype.$loading = {
       on: loadingInstance.on,
