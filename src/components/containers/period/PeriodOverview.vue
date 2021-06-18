@@ -33,9 +33,11 @@ export default {
 
       totalPrevWeek(state) {
         const monday = this.getMondayOfWeek(new Date(this.today).setDate(this.today.getDate() - 7));
-        const sunday = new Date(new Date(monday).setDate(monday.getDate() + 7));
+        const endDay = new Date(
+          new Date(monday).setDate(monday.getDate() + this.today.getDay() - 1)
+        );
 
-        return this.getPeriods(monday, sunday).reduce(
+        return this.getPeriods(monday, endDay).reduce(
           (acc, cur) => acc + (state.userCounts.get(cur) || 0),
           0
         );
@@ -51,24 +53,18 @@ export default {
       },
 
       totalPrevMonth(state) {
-        const miliseconds = 1000 * 3600 * 24;
         const start = new Date(this.today).setMonth(this.today.getMonth() - 1, 1);
-        const end = new Date(this.today).setDate(1);
-        const period = this.getPeriods(start, end).slice(0, Math.ceil((end - start) / miliseconds));
-        return period.reduce((acc, cur) => acc + (state.userCounts.get(cur) || 0), 0);
+        const end = new Date(this.today).setMonth(this.today.getMonth() - 1, this.today.getDate());
+        return this.getPeriods(start, end).reduce(
+          (acc, cur) => acc + (state.userCounts.get(cur) || 0),
+          0
+        );
       },
 
       totalMonth(state) {
         const start = new Date(this.today).setDate(1);
 
         return this.getPeriods(start, this.today).reduce(
-          (acc, cur) => acc + (state.userCounts.get(cur) || 0),
-          0
-        );
-      },
-
-      totalCustom(state) {
-        return this.getPeriods(...state.selectedPeriod).reduce(
           (acc, cur) => acc + (state.userCounts.get(cur) || 0),
           0
         );
@@ -81,6 +77,13 @@ export default {
             return new Date(period).setDate(period.getDate() - dateLength);
           })
         ).reduce((acc, cur) => acc + (state.userCounts.get(cur) || 0), 0);
+      },
+
+      totalCustom(state) {
+        return this.getPeriods(...state.selectedPeriod).reduce(
+          (acc, cur) => acc + (state.userCounts.get(cur) || 0),
+          0
+        );
       },
     }),
 
