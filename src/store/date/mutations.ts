@@ -1,5 +1,7 @@
 import { DateState_T } from './state';
 import cloneDeep from 'lodash/cloneDeep';
+import { MutationTree } from 'vuex';
+import { Legend_T } from '@/types';
 
 export enum MutationTypes {
   CHANGE_FIRST_DATE = 'changeFirstDate',
@@ -12,38 +14,39 @@ export enum MutationTypes {
   TOGGLE_SECOND_DATE_LEGENDS = 'toggleSecondDateLegend',
 }
 
-export const mutations = {
-  [MutationTypes.CHANGE_FIRST_DATE](state: DateState_T, payload) {
+export const mutations: MutationTree<DateState_T> = {
+  [MutationTypes.CHANGE_FIRST_DATE](state, payload: Date) {
     state.firstSelectedDate = payload;
   },
 
-  [MutationTypes.CHANGE_SECOND_DATE](state: DateState_T, payload) {
+  [MutationTypes.CHANGE_SECOND_DATE](state, payload) {
     state.secondSelectedDate = payload;
   },
 
-  [MutationTypes.CHANGE_FIRST_DATA](state: DateState_T, payload) {
+  [MutationTypes.CHANGE_FIRST_DATA](state, payload) {
+    console.log(payload);
     state.firstDate = payload.data;
   },
 
-  [MutationTypes.CHANGE_SECOND_DATA](state: DateState_T, payload) {
+  [MutationTypes.CHANGE_SECOND_DATA](state, payload) {
     state.secondDate = payload.data;
   },
 
-  [MutationTypes.CHANGE_FIRST_DATE_LEGENDS](state: DateState_T, payload) {
-    state.firstDateLegends = payload.map((legend, i) => ({
+  [MutationTypes.CHANGE_FIRST_DATE_LEGENDS](state, payload) {
+    state.firstDateLegends = payload.map((legend: Legend_T, i: number) => ({
       ...legend,
       active: state.firstDateLegends[i] ? state.firstDateLegends[i].active : true,
     }));
   },
 
-  [MutationTypes.CHANGE_SECOND_DATE_LEGENDS](state: DateState_T, payload) {
-    state.secondDateLegends = payload.map((legend, i) => ({
+  [MutationTypes.CHANGE_SECOND_DATE_LEGENDS](state, payload) {
+    state.secondDateLegends = payload.map((legend: Legend_T, i: number) => ({
       ...legend,
       active: state.secondDateLegends[i] ? state.secondDateLegends[i].active : true,
     }));
   },
 
-  [MutationTypes.TOGGLE_FIRST_DATE_LEGENDS](state: DateState_T, payload) {
+  [MutationTypes.TOGGLE_FIRST_DATE_LEGENDS](state, payload) {
     const newLegend = cloneDeep(state.firstDateLegends);
     const idx = state.firstDateLegends.findIndex(legend => legend.name === payload.legend.name);
     newLegend.splice(idx, 1, { ...payload.legend, active: !state.firstDateLegends[idx].active });

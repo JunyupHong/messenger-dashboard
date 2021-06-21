@@ -1,16 +1,17 @@
 import { PeriodState_T } from './state';
 import { fetchPeriod } from '@/api';
 import { dateToString } from '@/utils/date';
+import { ActionTree } from 'vuex';
 
 export enum ActionTypes {
   FETCH_PERIOD = 'fetchPeriod',
 }
 
-export const actions = {
+export const actions: ActionTree<PeriodState_T, {}> = {
   async [ActionTypes.FETCH_PERIOD]({ state, commit }) {
     const pervMonth = new Date(new Date().setFullYear(2020, new Date().getMonth() - 1, 1));
 
-    const result = new Map(
+    const result: Map<string, number> = new Map(
       (
         await Promise.all([
           fetchPeriod(
@@ -26,7 +27,7 @@ export const actions = {
         ])
       )
         .reduce((acc, cur) => acc.concat(cur), [])
-        .map(period => [period.date, period.total_count])
+        .map((period: { date: String; total_count: number }) => [period.date, period.total_count])
     );
 
     commit({ type: 'addUserCounts', userCounts: result });
