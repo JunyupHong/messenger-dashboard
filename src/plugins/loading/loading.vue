@@ -2,13 +2,13 @@
   <div class="loading" v-if="isLoading" v-loading="isLoading"></div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
 @Component({})
 export default class Loading extends Vue {
-  isLoading = false;
+  private isLoading = false;
 
   on() {
     this.isLoading = true;

@@ -8,7 +8,7 @@ interface FullLoading_T {
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $FullLoading: FullLoading_T;
+    $fullLoading: FullLoading_T;
   }
 }
 
@@ -17,7 +17,7 @@ export default {
     const LoadingConstructor = Vue.extend(Loading);
     const loadingInstance = new LoadingConstructor<FullLoading_T>().$mount();
 
-    Vue.prototype.$FullLoading = {
+    Vue.prototype.$fullLoading = {
       on: loadingInstance.on,
       off: loadingInstance.off,
     };
