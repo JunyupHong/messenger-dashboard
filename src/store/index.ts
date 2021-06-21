@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import date from './date.js';
-import period from './period.js';
+import date from './date/';
+import period from './period/';
 
 Vue.use(Vuex);
 
