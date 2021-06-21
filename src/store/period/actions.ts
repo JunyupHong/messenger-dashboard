@@ -1,3 +1,4 @@
+import { RootState } from '../';
 import { PeriodState_T } from './state';
 import { fetchPeriod } from '@/api';
 import { dateToString } from '@/utils/date';
@@ -7,7 +8,7 @@ export enum ActionTypes {
   FETCH_PERIOD = 'fetchPeriod',
 }
 
-export const actions: ActionTree<PeriodState_T, {}> = {
+export const actions: ActionTree<PeriodState_T, RootState> = {
   async [ActionTypes.FETCH_PERIOD]({ state, commit }) {
     const pervMonth = new Date(new Date().setFullYear(2020, new Date().getMonth() - 1, 1));
 
