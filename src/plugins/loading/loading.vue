@@ -3,21 +3,21 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      isLoading: false,
-    };
-  },
-  methods: {
-    on() {
-      this.isLoading = true;
-    },
-    off() {
-      this.isLoading = false;
-    },
-  },
-};
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+@Component({})
+export default class Loading extends Vue {
+  isLoading = false;
+
+  on() {
+    this.isLoading = true;
+  }
+
+  off() {
+    this.isLoading = false;
+  }
+}
 </script>
 
 <style lang="scss">
