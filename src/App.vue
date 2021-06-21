@@ -7,12 +7,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import Header from './components/presentationals/Header.vue';
+import Component from 'vue-class-component';
 
-export default {
+@Component({
   components: { Header },
-};
+})
+export default class App extends Vue {}
 </script>
 
 <style lang="scss" scoped>
