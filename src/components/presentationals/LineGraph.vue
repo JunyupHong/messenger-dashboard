@@ -10,17 +10,20 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import ContentBox from '@/components/presentationals/ContentBox.vue';
+import { Component, Prop } from 'vue-property-decorator';
 
-export default {
-  props: {
-    yLabel: String,
-    xLabel: String,
-  },
+@Component({
   components: { ContentBox },
-};
+})
+export default class LineGraph extends Vue {
+  @Prop() private yLabel?: string;
+  @Prop() private xLabel?: string;
+}
 </script>
+
 <style lang="scss" scoped>
 .linegraph {
   position: relative;
