@@ -5,7 +5,7 @@ const getDateQuery = (date: string): string => `/today/${date}`;
 const getPeriodQuery = (startDate: string, endDate: string) =>
   `/term/start-date/${startDate}/end-date/${endDate}`;
 
-export const fetchDate = async date => {
+export const fetchDate = async (date: string) => {
   try {
     const response = await axios.get(baseURL + getDateQuery(date));
     return response.data.data;
@@ -14,7 +14,7 @@ export const fetchDate = async date => {
   }
 };
 
-export const fetchPeriod = async (startDate, endDate) => {
+export const fetchPeriod = async (startDate: string, endDate: string) => {
   try {
     const response = await axios.get(baseURL + getPeriodQuery(startDate, endDate));
     return response.data.data;
