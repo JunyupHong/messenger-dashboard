@@ -27,44 +27,48 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
 import ContentBox from '../ContentBox.vue';
-import { getNumberWithComma } from '@/utils/number.js';
+import { getNumberWithComma } from '@/utils/number';
 
-export default {
-  props: {
-    contentData: { type: Object, required: true },
-  },
+interface Info_T {
+  desc: string;
+  value: number;
+  prevValue: number;
+}
 
+@Component({
   components: { ContentBox },
+})
+export default class PeriodOverview extends Vue {
+  @Prop({ required: true }) contentData!: {
+    day: Info_T;
+    week: Info_T;
+    month: Info_T;
+    custom: Info_T;
+  };
 
-  data() {
-    return {
-      contentsInfo: [
-        { title: 'day', desc: '전날 대비' },
-        { title: 'week', desc: '전주 대비' },
-        { title: 'month', desc: '전월 대비' },
-        { title: 'custom', desc: '이전 n일 대비' },
-      ],
-    };
-  },
+  private contentsInfo: Array<{ title: string; desc: string }> = [
+    { title: 'day', desc: '전날 대비' },
+    { title: 'week', desc: '전주 대비' },
+    { title: 'month', desc: '전월 대비' },
+    { title: 'custom', desc: '이전 n일 대비' },
+  ];
 
-  computed: {
-    percents() {
-      return Object.values(this.contentData).map(content =>
-        content.prevValue === 0
-          ? '-'
-          : (((content.value - content.prevValue) * 100) / content.prevValue).toFixed(2)
-      );
-    },
-  },
+  get percents() {
+    return Object.values(this.contentData).map(content =>
+      content.prevValue === 0
+        ? '-'
+        : (((content.value - content.prevValue) * 100) / content.prevValue).toFixed(2)
+    );
+  }
 
-  methods: {
-    showNumber(number) {
-      return getNumberWithComma(number);
-    },
-  },
-};
+  showNumber(number: number) {
+    return getNumberWithComma(number);
+  }
+}
 </script>
 
 <style lang="scss" scoped>
