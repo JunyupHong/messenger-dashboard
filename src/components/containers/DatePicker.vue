@@ -35,6 +35,7 @@ export default class DatePickerContainer extends Vue {
   async fetchPeriod() {
     await this.$store.dispatch(`period/${PeriodActionTypes.FETCH_PERIOD}`);
   }
+
   changeFirstDate(newDate: Date) {
     this.$store.commit(`date/${DateMutationTypes.CHANGE_FIRST_DATE}`, newDate);
   }

@@ -1,4 +1,10 @@
-export const interpolateHSL = (startHue, endHue, count, saturation = 100, lightness = 50) => {
+export const interpolateHSL = (
+  startHue: number,
+  endHue: number,
+  count: number,
+  saturation = 100,
+  lightness = 50
+): Array<{ h: number; s: number; l: number }> => {
   const result = [];
   const gap = Math.abs(startHue - endHue) / (count - 1);
 

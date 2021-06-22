@@ -2,8 +2,8 @@ import { VueConstructor } from 'vue/types/umd';
 import Loading from './loading.vue';
 
 interface FullLoading_T {
-  on: () => undefined;
-  off: () => undefined;
+  on: () => void;
+  off: () => void;
 }
 
 declare module 'vue/types/vue' {
