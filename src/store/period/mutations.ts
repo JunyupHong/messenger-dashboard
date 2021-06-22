@@ -7,7 +7,7 @@ export enum MutationTypes {
 }
 
 export const mutations: MutationTree<State_T> = {
-  [MutationTypes.CHANGE_PERIOD](state, payload: Date[]) {
+  [MutationTypes.CHANGE_PERIOD](state, payload: [Date, Date]) {
     state.selectedPeriod = payload;
   },
   [MutationTypes.ADD_USER_COUNTS](

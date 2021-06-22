@@ -76,6 +76,7 @@ export default class Date extends Vue {
   }
 
   get selectedSecondDate() {
+    if (!this.secondSelectedDate) return '';
     return dateToString(this.secondSelectedDate, 'YYYY.MM.DD');
   }
 

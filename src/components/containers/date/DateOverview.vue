@@ -47,7 +47,7 @@ export default class DateOverviewContainer extends Vue {
 
   get firstDate() {
     return {
-      desc: dateToString(this.selectedDate[0], 'YYYY.MM.DD'),
+      desc: dateToString(this.selectedDate[0] as Date, 'YYYY.MM.DD'),
       max: this.maxFirstDate,
       total: this.totalFirstDate,
     };
@@ -74,7 +74,7 @@ export default class DateOverviewContainer extends Vue {
 
     const datasets = [
       {
-        label: dateToString(this.selectedDate[0], 'YYYY.MM.DD'),
+        label: dateToString(this.selectedDate[0] as Date, 'YYYY.MM.DD'),
         backgroundColor: '#2E447F',
         data: this.firstDateServers.map(server =>
           server.reduce((acc: number, cur: Server_T) => acc + cur.max_user, 0)
