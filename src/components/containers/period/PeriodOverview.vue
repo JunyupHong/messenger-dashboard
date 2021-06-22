@@ -80,7 +80,7 @@ export default class PeriodOverviewContainer extends Vue {
     );
   }
 
-  contentData() {
+  get contentData() {
     return {
       day: {
         value: this.totalCountToday,
