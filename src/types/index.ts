@@ -16,9 +16,11 @@ export interface Server_T {
 export interface ChartData_T {
   datasets: Array<{
     label: string;
-    data: Number[];
+    data: Array<number>;
     borderColor: string;
     backgroundColor: string;
+    fill: boolean;
+    tension: number;
   }>;
-  labels: Array<Number>;
+  labels: Array<number>;
 }
