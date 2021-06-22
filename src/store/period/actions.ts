@@ -27,8 +27,8 @@ export const actions: ActionTree<PeriodState_T, RootState> = {
           ),
         ])
       )
-        .reduce((acc, cur) => acc.concat(cur), [])
-        .map((period: { date: String; total_count: number }) => [period.date, period.total_count])
+        .reduce((acc: Array<{ date: string; total_count: number }>, cur) => acc.concat(cur), [])
+        .map((period: { date: string; total_count: number }) => [period.date, period.total_count])
     );
 
     commit({ type: 'addUserCounts', userCounts: result });

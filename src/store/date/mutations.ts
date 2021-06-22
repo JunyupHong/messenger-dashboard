@@ -24,7 +24,6 @@ export const mutations: MutationTree<DateState_T> = {
   },
 
   [MutationTypes.CHANGE_FIRST_DATA](state, payload) {
-    console.log(payload);
     state.firstDate = payload.data;
   },
 

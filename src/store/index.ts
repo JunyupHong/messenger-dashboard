@@ -3,7 +3,6 @@ import Vuex, { StoreOptions } from 'vuex';
 import date from './date/index';
 import period from './period/';
 
-console.log(date);
 Vue.use(Vuex);
 
 export interface RootState {
