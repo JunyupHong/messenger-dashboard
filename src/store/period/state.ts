@@ -1,9 +1,12 @@
-export const state = {
+export interface State_T {
+  selectedPeriod: [Date, Date];
+  userCounts: Map<string, number>;
+}
+
+export const state: State_T = {
   selectedPeriod: [
     new Date(new Date().setFullYear(2020, new Date().getMonth(), new Date().getDate() - 3)),
     new Date(new Date().setFullYear(2020)),
   ],
-  userCounts: new Map(),
+  userCounts: new Map<string, number>(),
 };
-
-export type PeriodState_T = typeof state;

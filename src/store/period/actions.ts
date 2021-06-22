@@ -1,5 +1,5 @@
-import { RootState } from '../';
-import { PeriodState_T } from './state';
+import { RootState } from '../types';
+import { State_T } from './state';
 import { fetchPeriod } from '@/api';
 import { dateToString } from '@/utils/date';
 import { ActionTree } from 'vuex';
@@ -8,8 +8,8 @@ export enum ActionTypes {
   FETCH_PERIOD = 'fetchPeriod',
 }
 
-export const actions: ActionTree<PeriodState_T, RootState> = {
-  async [ActionTypes.FETCH_PERIOD]({ state, commit }) {
+export const actions = {
+  async [ActionTypes.FETCH_PERIOD]({ state, commit }: { state: State_T; commit: any }) {
     const pervMonth = new Date(new Date().setFullYear(2020, new Date().getMonth() - 1, 1));
 
     const result: Map<string, number> = new Map(
@@ -35,4 +35,4 @@ export const actions: ActionTree<PeriodState_T, RootState> = {
   },
 };
 
-export type Action_T = typeof actions;
+export type Actions_T = typeof actions;

@@ -1,13 +1,10 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
-import date from './date/index';
+import { RootState } from './types';
+import date from './date/';
 import period from './period/';
 
 Vue.use(Vuex);
-
-export interface RootState {
-  //
-}
 
 const store: StoreOptions<RootState> = {
   modules: {
@@ -16,4 +13,4 @@ const store: StoreOptions<RootState> = {
   },
 };
 
-export default new Vuex.Store<RootState>(store);
+export default new Vuex.Store(store);

@@ -1,4 +1,4 @@
-import { DateState_T } from './state';
+import { State_T } from './state';
 import cloneDeep from 'lodash/cloneDeep';
 import { MutationTree } from 'vuex';
 import { Legend_T } from '@/types';
@@ -14,7 +14,7 @@ export enum MutationTypes {
   TOGGLE_SECOND_DATE_LEGENDS = 'toggleSecondDateLegend',
 }
 
-export const mutations: MutationTree<DateState_T> = {
+export const mutations: MutationTree<State_T> = {
   [MutationTypes.CHANGE_FIRST_DATE](state, payload: Date) {
     state.firstSelectedDate = payload;
   },
@@ -52,7 +52,7 @@ export const mutations: MutationTree<DateState_T> = {
     state.firstDateLegends = newLegend;
   },
 
-  [MutationTypes.TOGGLE_SECOND_DATE_LEGENDS](state: DateState_T, payload) {
+  [MutationTypes.TOGGLE_SECOND_DATE_LEGENDS](state, payload) {
     const newLegend = cloneDeep(state.secondDateLegends);
     const idx = state.secondDateLegends.findIndex(legend => legend.name === payload.legend.name);
     newLegend.splice(idx, 1, { ...payload.legend, active: !state.secondDateLegends[idx].active });

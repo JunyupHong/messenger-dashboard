@@ -1,6 +1,6 @@
 import { Legend_T, Server_T } from '@/types/';
 
-export interface DateState_T {
+export interface State_T {
   firstSelectedDate: Date;
   secondSelectedDate?: Date;
   firstDate: Array<Server_T>;
@@ -9,7 +9,7 @@ export interface DateState_T {
   secondDateLegends: Array<Legend_T>;
 }
 
-export const state: DateState_T = {
+export const state: State_T = {
   firstSelectedDate: new Date(new Date().setFullYear(2020)),
   secondSelectedDate: undefined,
   firstDate: [],

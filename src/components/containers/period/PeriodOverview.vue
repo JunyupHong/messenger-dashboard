@@ -63,17 +63,15 @@ export default class PeriodOverviewContainer extends Vue {
   }
 
   get totalPrevCustom() {
-    // @ts-ignore
     const dateLength = this.getPeriods(...this.$store.state.period.selectedPeriod).length;
+
     return this.getPeriods(
-      // @ts-ignore
-      ...this.$store.state.period.selectedPeriod.map(period => {
-        return new Date(period).setDate(period.getDate() - dateLength);
-      })
+      ...(this.$store.state.period.selectedPeriod.map(period =>
+        new Date(period).setDate(period.getDate() - dateLength)
+      ) as [number, number])
     ).reduce((acc, cur) => acc + (this.$store.state.period.userCounts.get(cur) || 0), 0);
   }
   get totalCustom() {
-    // @ts-ignore
     return this.getPeriods(...this.$store.state.period.selectedPeriod).reduce(
       (acc, cur) => acc + (this.$store.state.period.userCounts.get(cur) || 0),
       0
