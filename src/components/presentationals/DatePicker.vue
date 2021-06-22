@@ -31,42 +31,40 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    type: String,
-    dateValue: Array,
-  },
-  computed: {
-    isPeriodPage() {
-      return this.type === 'period';
-    },
-    period: {
-      get() {
-        return this.dateValue;
-      },
-      set(newPeriod) {
-        this.$emit('changePeriod', { newPeriod, prevPeriod: this.dateValue });
-      },
-    },
-    firstDate: {
-      get() {
-        return this.dateValue[0];
-      },
-      set(newFirstDate) {
-        this.$emit('changeFirstDate', { newFirstDate, prevFirstDate: this.dateValue[0] });
-      },
-    },
-    secondDate: {
-      get() {
-        return this.dateValue[1];
-      },
-      set(newSecondDate) {
-        this.$emit('changeSecondDate', { newSecondDate, prevSecondDate: this.dateValue[1] });
-      },
-    },
-  },
-};
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+
+@Component({})
+export default class DatePicker extends Vue {
+  @Prop({ required: true }) type!: string;
+  @Prop({ required: true }) dateValue!: [Date, Date | undefined];
+
+  get isPeriodPage() {
+    return this.type === 'period';
+  }
+
+  get period() {
+    return this.dateValue;
+  }
+  set period(newPeriod) {
+    this.$emit('changePeriod', { newPeriod, prevPeriod: this.dateValue });
+  }
+
+  get firstDate() {
+    return this.dateValue[0];
+  }
+  set firstDate(newFirstDate) {
+    this.$emit('changeFirstDate', { newFirstDate, prevFirstDate: this.dateValue[0] });
+  }
+
+  get secondDate() {
+    return this.dateValue[1];
+  }
+  set secondDate(newSecondDate) {
+    this.$emit('changeSecondDate', { newSecondDate, prevSecondDate: this.dateValue[1] });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
