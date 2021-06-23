@@ -22,6 +22,7 @@ export default class App extends Vue {}
 @import '@/assets/styles/mixins/_mixins.scss';
 
 #app {
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', arial, sans-serif;
   width: 100vw;
   height: 100vh;
 }
