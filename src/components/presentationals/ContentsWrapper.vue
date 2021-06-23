@@ -7,12 +7,14 @@
   </section>
 </template>
 
-<script>
-export default {
-  props: {
-    title: String,
-  },
-};
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+
+@Component
+export default class ContentsWrapper extends Vue {
+  @Prop() title!: String;
+}
 </script>
 
 <style lang="scss" scoped>

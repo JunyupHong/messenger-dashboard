@@ -8,100 +8,109 @@
   />
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
 import DatePicker from '../presentationals/DatePicker.vue';
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { ActionTypes as DateActionTypes } from '@/store/date/actions';
+import { MutationTypes as DateMutationTypes } from '@/store/date/mutations';
+import { ActionTypes as PeriodActionTypes } from '@/store/period/actions';
+import { MutationTypes as PeriodMutationTypes } from '@/store/period/mutations';
 
-export default {
-  props: {
-    type: String,
-  },
-
+@Component({
   components: { DatePicker },
+})
+export default class DatePickerContainer extends Vue {
+  @Prop({ required: true }) type!: 'period' | 'date';
 
-  computed: {
-    ...mapState('period', {
-      dateValue(state) {
-        return this.type === 'period' ? state.selectedPeriod : this.selectedDate;
-      },
-    }),
-    ...mapState('date', {
-      selectedDate(state) {
-        return [state.firstSelectedDate, state.secondSelectedDate];
-      },
-    }),
-  },
+  get dateValue() {
+    return this.type === 'period'
+      ? this.$store.state.period.selectedPeriod
+      : [this.$store.state.date.firstSelectedDate, this.$store.state.date.secondSelectedDate];
+  }
 
-  methods: {
-    ...mapMutations('period', ['changePeriod']),
-    ...mapActions('period', ['fetchPeriod']),
-    ...mapMutations('date', ['changeFirstDate', 'changeSecondDate']),
-    ...mapActions('date', ['fetchFirstDate', 'fetchSecondDate']),
-    async onChangePeriod({ newPeriod, prevPeriod }) {
-      const fetchPeriod = async () => {
-        try {
-          this.$loading.on();
-          this.changePeriod(newPeriod);
-          await this.fetchPeriod();
-          return Promise.resolve();
-        } catch (e) {
-          alert('해당 기간 데이터를 가져올 수 없습니다.');
-          this.changePeriod(prevPeriod);
-          return Promise.reject();
-        }
-      };
-      await Promise.allSettled([
-        fetchPeriod(),
-        new Promise(resolve => setTimeout(() => resolve(), 500)),
-      ]);
-      this.$loading.off();
-    },
+  changePeriod(newPeriod: [Date, Date]) {
+    this.$store.commit(PeriodMutationTypes.CHANGE_PERIOD, newPeriod);
+  }
+  async fetchPeriod() {
+    await this.$store.dispatch(PeriodActionTypes.FETCH_PERIOD);
+  }
 
-    async onChangeFirstDate({ newFirstDate, prevFirstDate }) {
-      const fetchDate = async () => {
-        try {
-          this.$loading.on();
-          this.changeFirstDate(newFirstDate);
-          await this.fetchFirstDate();
-        } catch (e) {
-          alert('해당 날짜 데이터를 가져올 수 없습니다.');
-          this.changeFirstDate(prevFirstDate);
-        }
-      };
+  changeFirstDate(newDate: Date) {
+    this.$store.commit(DateMutationTypes.CHANGE_FIRST_DATE, newDate);
+  }
+  changeSecondDate(newDate: Date | undefined) {
+    this.$store.commit(DateMutationTypes.CHANGE_SECOND_DATE, newDate);
+  }
+  async fetchFirstDate() {
+    await this.$store.dispatch(DateActionTypes.FETCH_FIRST_DATE);
+  }
+  async fetchSecondDate() {
+    await this.$store.dispatch(DateActionTypes.FETCH_SECOND_DATE);
+  }
 
-      await Promise.allSettled([
-        fetchDate(),
-        new Promise(resolve => setTimeout(() => resolve(), 500)),
-      ]);
-      this.$loading.off();
-    },
+  async onChangePeriod({
+    newPeriod,
+    prevPeriod,
+  }: {
+    newPeriod: [Date, Date];
+    prevPeriod: [Date, Date];
+  }) {
+    try {
+      this.$fullLoading.on();
+      this.changePeriod(newPeriod);
+      await this.fetchPeriod();
+    } catch (e) {
+      alert('해당 기간 데이터를 가져올 수 없습니다.');
+      this.changePeriod(prevPeriod);
+    }
 
-    async onChangeSecondDate({ newSecondDate, prevSecondDate }) {
-      const fetchDate = async () => {
-        try {
-          this.$loading.on();
-          this.changeSecondDate(newSecondDate);
-          await this.fetchSecondDate();
-        } catch (e) {
-          alert('해당 날짜 데이터를 가져올 수 없습니다.');
-          this.changeSecondDate(prevSecondDate);
-        }
-      };
+    this.$fullLoading.off();
+  }
 
-      await Promise.allSettled([
-        fetchDate(),
-        new Promise(resolve => setTimeout(() => resolve(), 500)),
-      ]);
-      this.$loading.off();
-    },
-  },
+  async onChangeFirstDate({
+    newFirstDate,
+    prevFirstDate,
+  }: {
+    newFirstDate: Date;
+    prevFirstDate: Date;
+  }) {
+    try {
+      this.$fullLoading.on();
+      this.changeFirstDate(newFirstDate);
+      await this.fetchFirstDate();
+    } catch (e) {
+      alert('해당 날짜 데이터를 가져올 수 없습니다.');
+      this.changeFirstDate(prevFirstDate);
+    }
+    this.$fullLoading.off();
+  }
+
+  async onChangeSecondDate({
+    newSecondDate,
+    prevSecondDate,
+  }: {
+    newSecondDate: Date | undefined;
+    prevSecondDate: Date | undefined;
+  }) {
+    try {
+      this.$fullLoading.on();
+      this.changeSecondDate(newSecondDate);
+      await this.fetchSecondDate();
+    } catch (e) {
+      alert('해당 날짜 데이터를 가져올 수 없습니다.');
+      this.changeSecondDate(prevSecondDate);
+    }
+    this.$fullLoading.off();
+  }
+
   async mounted() {
-    this.$loading.on();
+    this.$fullLoading.on();
     if (this.type === 'period') await this.fetchPeriod();
     else if (this.type === 'date') await this.fetchFirstDate();
-    this.$loading.off();
-  },
-};
+    this.$fullLoading.off();
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -51,50 +51,42 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+
 import ContentBox from '../ContentBox.vue';
 import BarGraphChartjs from '../graph/BarGraphChartjs.vue';
-import { getNumberWithComma } from '@/utils/number.js';
+import { getNumberWithComma } from '@/utils/number';
 
-export default {
+@Component({
   components: { ContentBox, BarGraphChartjs },
-  props: {
-    firstDate: {
-      type: Object,
-      required: true,
-    },
-    secondDate: {
-      type: Object,
-      default: null,
-      validator: function (value) {
-        return (
-          typeof value.desc === 'string' &&
-          typeof value.max === 'number' &&
-          typeof value.total === 'number'
-        );
-      },
-    },
-    barGraph: {
-      type: Object,
-      required: true,
-    },
-  },
-  computed: {
-    isValidSecondDate() {
-      if (!this.secondDate) return false;
-      return (
-        typeof this.secondDate.desc === 'string' &&
-        typeof this.secondDate.max === 'number' &&
-        typeof this.secondDate.total === 'number'
-      );
-    },
-  },
-  methods: {
-    showNumber(number) {
-      return getNumberWithComma(number);
-    },
-  },
-};
+})
+export default class DateOverview extends Vue {
+  @Prop({ required: true }) firstDate!: Object;
+  @Prop({
+    default: null,
+    validator: value =>
+      typeof value.desc === 'string' &&
+      typeof value.max === 'number' &&
+      typeof value.total === 'number',
+  })
+  secondDate!: { desc: string; max: number; total: number };
+  @Prop({ required: true }) barGraph!: Object;
+
+  get isValidSecondDate() {
+    if (!this.secondDate) return false;
+    return (
+      typeof this.secondDate.desc === 'string' &&
+      typeof this.secondDate.max === 'number' &&
+      typeof this.secondDate.total === 'number'
+    );
+  }
+
+  showNumber(number: number) {
+    return getNumberWithComma(number);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

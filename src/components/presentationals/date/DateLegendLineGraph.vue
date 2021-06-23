@@ -25,30 +25,26 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import LineGraph from '@/components/presentationals/LineGraph.vue';
 import LineGraphChartjs from '@/components/presentationals/graph/LineGraphChartjs.vue';
+import Vue from 'vue';
+import { Component, Prop } from 'vue-property-decorator';
+import { ChartData_T, Legend_T } from '@/types';
 
-export default {
-  props: {
-    xLabel: String,
-    yLabel: String,
-    legends: {
-      type: Array,
-      required: true,
-    },
-    chartData: {
-      type: Object,
-      required: true,
-    },
-  },
+@Component({
   components: { LineGraph, LineGraphChartjs },
-  methods: {
-    onClickLegend(legend) {
-      this.$emit('toggleLegend', legend);
-    },
-  },
-};
+})
+export default class DateLegendLineGraph extends Vue {
+  @Prop() xLabel?: string;
+  @Prop() yLabel?: string;
+  @Prop({ required: true }) legends!: Array<Legend_T>;
+  @Prop({ required: true }) chartData!: ChartData_T;
+
+  onClickLegend(legend: Legend_T) {
+    this.$emit('toggleLegend', legend);
+  }
+}
 </script>
 
 <style lang="scss" scoped>

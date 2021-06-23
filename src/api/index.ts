@@ -1,10 +1,12 @@
+import { Server_T } from '@/types';
 import axios from 'axios';
 
 const baseURL = 'https://dev-msgr-statistics-api.hiworks.com/v1/statistics';
-const getDateQuery = date => `/today/${date}`;
-const getPeriodQuery = (startDate, endDate) => `/term/start-date/${startDate}/end-date/${endDate}`;
+const getDateQuery = (date: string): string => `/today/${date}`;
+const getPeriodQuery = (startDate: string, endDate: string) =>
+  `/term/start-date/${startDate}/end-date/${endDate}`;
 
-export const fetchDate = async date => {
+export const fetchDate = async (date: string): Promise<Array<Server_T>> => {
   try {
     const response = await axios.get(baseURL + getDateQuery(date));
     return response.data.data;
@@ -13,7 +15,10 @@ export const fetchDate = async date => {
   }
 };
 
-export const fetchPeriod = async (startDate, endDate) => {
+export const fetchPeriod = async (
+  startDate: string,
+  endDate: string
+): Promise<{ date: string; total_count: number }> => {
   try {
     const response = await axios.get(baseURL + getPeriodQuery(startDate, endDate));
     return response.data.data;
