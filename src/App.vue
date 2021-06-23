@@ -2,23 +2,24 @@
   <div id="app">
     <Header></Header>
     <main class="content-area">
-      <router-view />
+      <router-view></router-view>
     </main>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
 import Header from './components/presentationals/Header.vue';
+import Component from 'vue-class-component';
 
-export default {
+@Component({
   components: { Header },
-};
+})
+export default class App extends Vue {}
 </script>
 
-<style lang="scss">
-@import './assets/styles/_reset.scss';
-@import './assets/styles/_mixins.scss';
-@import './assets/styles/_global.scss';
+<style lang="scss" scoped>
+@import '@/assets/styles/mixins/_mixins.scss';
 
 #app {
   width: 100vw;
@@ -27,7 +28,7 @@ export default {
 
 .content-area {
   @include content-max-width;
-  padding: 12px 0px;
+  padding: 12px 0;
   margin: auto;
 }
 </style>
