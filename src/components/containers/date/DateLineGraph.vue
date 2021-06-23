@@ -62,7 +62,7 @@ export default class DateLineGraphContainer extends Vue {
     };
   }
 
-  dateByTimes(dateData: Array<Server_T>): Server_T[][] {
+  dateByTimes(dateData: Array<Server_T>): Array<Array<Server_T>> {
     return flow(date => groupBy(date, hour => hour.conn_hours), Object.values)(dateData);
   }
 }

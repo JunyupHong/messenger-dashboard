@@ -45,23 +45,17 @@ export default class DateLegendLineGraphContainer extends Vue {
   @Watch('servers')
   onChangeServers() {
     if (this.type === 'first') {
-      this.$store.commit(
-        `date/${[MutationTypes.CHANGE_FIRST_DATE_LEGENDS]}`,
-        this.getInitLegends()
-      );
+      this.$store.commit(MutationTypes.CHANGE_FIRST_DATE_LEGENDS, this.getInitLegends());
     } else {
-      this.$store.commit(
-        `date/${[MutationTypes.CHANGE_SECOND_DATE_LEGENDS]}`,
-        this.getInitLegends()
-      );
+      this.$store.commit(MutationTypes.CHANGE_SECOND_DATE_LEGENDS, this.getInitLegends());
     }
   }
 
   toggleLegend(legend: Legend_T) {
     if (this.type === 'first') {
-      this.$store.commit(`date/${MutationTypes.TOGGLE_FIRST_DATE_LEGENDS}`, { legend });
+      this.$store.commit(MutationTypes.TOGGLE_FIRST_DATE_LEGENDS, legend);
     } else {
-      this.$store.commit(`date/${MutationTypes.TOGGLE_SECOND_DATE_LEGENDS}`, { legend });
+      this.$store.commit(MutationTypes.TOGGLE_SECOND_DATE_LEGENDS, legend);
     }
   }
 

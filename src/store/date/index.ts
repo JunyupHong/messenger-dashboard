@@ -10,7 +10,6 @@ import type { Actions_T } from './actions';
 export type { State_T as DateState_T, Mutations_T as DateMutations_T, Actions_T as DateActions_T };
 
 const date: Module<State_T, RootState> = {
-  namespaced: true,
   state,
   mutations,
   actions,

@@ -14,7 +14,6 @@ export type {
 };
 
 const period: Module<State_T, RootState> = {
-  namespaced: true,
   state,
   mutations,
   actions,

@@ -88,7 +88,7 @@ export default class Date extends Vue {
     return this.dateByServer(this.$store.state.date.secondDate);
   }
 
-  dateByServer(dateData: Server_T[]): Server_T[][] {
+  dateByServer(dateData: Array<Server_T>): Array<Array<Server_T>> {
     return flow(date => groupBy(date, server => server.serverinfo_uid), Object.values)(dateData);
   }
 }

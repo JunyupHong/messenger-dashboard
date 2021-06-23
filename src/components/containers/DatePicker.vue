@@ -30,23 +30,23 @@ export default class DatePickerContainer extends Vue {
   }
 
   changePeriod(newPeriod: [Date, Date]) {
-    this.$store.commit(`period/${PeriodMutationTypes.CHANGE_PERIOD}`, newPeriod);
+    this.$store.commit(PeriodMutationTypes.CHANGE_PERIOD, newPeriod);
   }
   async fetchPeriod() {
-    await this.$store.dispatch(`period/${PeriodActionTypes.FETCH_PERIOD}`);
+    await this.$store.dispatch(PeriodActionTypes.FETCH_PERIOD);
   }
 
   changeFirstDate(newDate: Date) {
-    this.$store.commit(`date/${DateMutationTypes.CHANGE_FIRST_DATE}`, newDate);
+    this.$store.commit(DateMutationTypes.CHANGE_FIRST_DATE, newDate);
   }
   changeSecondDate(newDate: Date | undefined) {
-    this.$store.commit(`date/${DateMutationTypes.CHANGE_SECOND_DATE}`, newDate);
+    this.$store.commit(DateMutationTypes.CHANGE_SECOND_DATE, newDate);
   }
   async fetchFirstDate() {
-    await this.$store.dispatch(`date/${DateActionTypes.FETCH_FIRST_DATE}`);
+    await this.$store.dispatch(DateActionTypes.FETCH_FIRST_DATE);
   }
   async fetchSecondDate() {
-    await this.$store.dispatch(`date/${DateActionTypes.FETCH_SECOND_DATE}`);
+    await this.$store.dispatch(DateActionTypes.FETCH_SECOND_DATE);
   }
 
   async onChangePeriod({
