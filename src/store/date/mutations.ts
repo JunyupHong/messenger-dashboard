@@ -1,7 +1,7 @@
 import { State_T } from './state';
 import cloneDeep from 'lodash/cloneDeep';
 import { MutationTree } from 'vuex';
-import { Legend_T, Server_T } from '@/types';
+import type { Legend_T, Server_T } from '@/types';
 
 export enum MutationTypes {
   CHANGE_FIRST_DATE = 'date/changeFirstDate',

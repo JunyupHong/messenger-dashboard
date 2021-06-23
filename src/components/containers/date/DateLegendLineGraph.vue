@@ -23,7 +23,7 @@ export default class DateLegendLineGraphContainer extends Vue {
   @Prop() xLabel?: string;
   @Prop() yLabel?: string;
   @Prop({ required: true }) legends!: Array<Legend_T>;
-  @Prop({ required: true }) servers!: Server_T[][];
+  @Prop({ required: true }) servers!: Array<Array<Server_T>>;
   @Prop({ required: true }) type!: string;
 
   get chart(): ChartData_T {

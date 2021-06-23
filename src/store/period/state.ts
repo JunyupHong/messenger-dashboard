@@ -1,7 +1,7 @@
-export interface State_T {
+export type State_T = {
   selectedPeriod: [Date, Date];
   userCounts: Map<string, number>;
-}
+};
 
 export const state: State_T = {
   selectedPeriod: [

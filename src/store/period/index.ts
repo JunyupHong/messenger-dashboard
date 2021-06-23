@@ -5,7 +5,7 @@ import type { Mutations_T } from './mutations';
 import { actions } from './actions';
 import type { Actions_T } from './actions';
 import { Module } from 'vuex';
-import { RootState } from '../types';
+import type { RootState } from '../types';
 
 export type {
   State_T as PeriodState_T,

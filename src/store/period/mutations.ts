@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex';
-import { State_T } from './state';
+import type { State_T } from './state';
 
 export enum MutationTypes {
   CHANGE_PERIOD = 'period/changePeriod',

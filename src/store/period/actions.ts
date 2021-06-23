@@ -1,9 +1,10 @@
 /* eslint-disable prettier/prettier */
-import { State_T } from './state';
+import type { State_T } from './state';
 import { fetchPeriod } from '@/api';
 import { dateToString } from '@/utils/date';
-import { MutationTypes, Mutations_T } from './mutations';
-import { RootState } from '../types';
+import { MutationTypes } from './mutations';
+import type { Mutations_T } from './mutations';
+import type { RootState } from '../types';
 import { ActionContext } from 'vuex';
 
 export enum ActionTypes {

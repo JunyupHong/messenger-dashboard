@@ -1,4 +1,4 @@
-import { RootState } from '../types';
+import type { RootState } from '../types';
 import { Module } from 'vuex';
 import { state } from './state';
 import type { State_T } from './state';
